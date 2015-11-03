@@ -2,4 +2,16 @@
 .o
 .hi
 
+############
+# for LaTeX
+############
+*.pdf
+*.aux
+*.synctex.gz
+*.log
+*.toc
+*.out
+############
+############
+
 #and so on
