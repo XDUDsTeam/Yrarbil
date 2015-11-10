@@ -5,6 +5,9 @@
 %使用 XeLaTeX 和 CTeX 套装 编译
 \documentclass[UTF8]{ctexrep}
 
+%确定是需求分析
+\def\daPart{}
+
 \include{Author}
 \include{Preamble}
 
@@ -24,7 +27,7 @@
     图书管理系统的基本的需求是对图书的基本生命周期进行跟踪，确定图书的状态。同时收录图书的各类型信息，以供其他需求使用。
     \section{读者的需求}
     作为读者的需求是从图书馆借阅出图书。而相对的还需要可以查询到图书的信息，同时可以在图书馆的信息库中使用到包括论文文献的信息的功能
-    \footnote{再次只考虑到，头脑正常，使用 \LaTeX \TeX 等 撰写学术论文的人。} ， 并提供 \BibTeX 相对的内容。
+    \footnote{再次只考虑到，头脑正常，使用 \LaTeX \space \TeX 等 撰写学术论文的人。} ， 并提供 \BibTeX 相对的内容。
     \section{图书馆的需求}
     管理读者的同时，限制读者借阅的行为。同时量化读者在借阅行为中的不合理行为的处罚。同时提高对读者的服务质量，分析图书需求等。
     \chapter{图书生命周期}
@@ -65,8 +68,43 @@
     	\item 每本书的条码（唯一）
     	\item 在架状态
     \end{itemize}
-    \subsection{记录}
-    记录包含入库、借阅、销毁等记录。
+    \section{图书处理记录}
+    \subsection{图书入库与销毁记录}
+    记录图书入库时的记录，应有：
+    \begin{itemize}
+        \item 购买时间
+        \item 购买价格
+    \end{itemize}
+    
+    销毁时的记录，应有：
+    \begin{itemize}
+        \item 销毁日期
+        \item 销毁理由
+    \end{itemize}
+    \subsection{借阅记录}
+    \begin{itemize}
+        \item 操作(大)流水号 \footnote{\label{参见}
+            参见  \ref{流水号} 一部分中的注释 \ref{流水号:footnote}。下同。}
+        \item 读者条码
+        \item 图书条码
+        \item 借阅期限集合
+        \item 实际还书时间
+    \end{itemize}
+    \subsection{预约记录}
+    \begin{itemize}
+        \item 操作(大)流水号  
+        \item 进行预约的读者的条码
+        \item 被预约的书的条码
+        \item 预约时间
+    \end{itemize}
+    \section{其他记录}
+    \subsection{处罚记录}
+    \begin{itemize}
+        \item 操作(大)流水号
+        \item 被处罚者的条码
+        \item 金额
+        \item 原因
+    \end{itemize}
     \chapter{读者数据}
     \section{读者的基本数据}
     \begin{itemize}
@@ -83,5 +121,17 @@
     \end{itemize}
     \section{其他}
     欠款,及其来源。
+    \section{操作数据}
+    \begin{itemize}
+        \item 操作（小）流水号 \label{流水号}
+        \footnote{\label{流水号:footnote}
+            此处的流水号是指某时刻的流水号，之后称为\textbf{小流水号}；将小流水号、操作类型、操作时间称为\textbf{大流水号}。
+            }
+        \item 操作类型
+        \item 操作状态
+        \item 操作定位
+        \item 操作时间
+    \end{itemize}
+
 \end{document}
 

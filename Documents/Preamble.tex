@@ -9,7 +9,31 @@
 % 使用 代码环境的宏包
 \usepackage{listings}
 
+%调整样式
+%修改页眉与页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\small 第\,\thechapter\,部分\quad #1}{}}
+%章节的
+\usepackage{titlesec}
+%目录的
+\usepackage{titletoc}
+%修改Chapter的格式
+\titleformat{\chapter}
+    [display]
+    {\centering\Huge\bfseries}
+    {第\,\thechapter\,部分}
+    {1em}
+    {}
+%修改Chapter的目录格式
+\titlecontents{chapter}
+    [0pt]
+    {\addvspace{2pt}\filright}
+    {\contentspush{}}%\thecontentslabel\ }}
+    {a}
+    {\titlerule*[8pt]{.}\contentspage}
 
 %定义 BibTeX 图标
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
