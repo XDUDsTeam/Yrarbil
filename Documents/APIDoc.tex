@@ -7,17 +7,48 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%
+% flag 设置
+%%%%%%
+\makeatletter
+\def\@NoStyleChapter{} % 设置不适用章节格式
+\def\@apiPart{} % 设置当前为 api 部分
+\def\@APIVersionFlag{}
+\makeatother
+
 %使用 XeLaTeX 和 CTeX 套装 编译
-\documentclass[UTF8]{ctexrep}
+\documentclass[UTF8]{ctexart}
 
 %确定该文档
 \def\apidPart{}
+%%%%%%
+%% 版本
+%%%%%%
+\def\apiver{0.0.0.0-tag}
+
 
 \include{Author}
 \include{Preamble}
 
-\title{Yrarbil's API Document \thanks{version : 0.0.0-初始}}
+\title{Yrarbil's API Document \thanks{version : \apiver}}
 \begin{document}
     \maketitle
-    内容...
+    \newpage
+    \include{PrjIntr}
+    \pdfbookmark[1]{text}{anchor}
+    \tableofcontents
+    \newpage
+    \section{API说明}
+    本 API 文档是约束前后端的行为的文档。规定了前后端之间的行为规范。但值得注意的是，前后端不一定是满足这个文档的。当前的 API 版本是 \apiver 。
+    \subsection{那些部分会遵循api}
+    原则上来说，整个项目均会按照此 api 文档构建。但主要的是在数据库，后端，与前端部分支持。
+    \section{数据库API}
+    \apiversion{0.0.0.0-tag} 可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
+    \begin{lstlisting}[language=SQL]
+    SELECT * FROM versions WHERE not vereq(ver,yourver);
+    \end{lstlisting}
+    其中 yourver 是指定的版本标号。
+    \section{后端API}
+    \section{前端API}
+    
 \end{document}

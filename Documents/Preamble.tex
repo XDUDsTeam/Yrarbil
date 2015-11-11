@@ -3,23 +3,51 @@
 %%%%%%%%%%%%%%%%%%%%%%
 
 % 使用 color 宏包
-\usepackage{color}
+\makeatletter
+\ifdefined\@NoPagckageColor %! 如果定义了 ，不包含宏包color
+\relax
+\else\usepackage{color}
+\fi
+\makeatother
+
+
+
 % 对链接等的处理
-\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref}
+\makeatletter
+\ifdefined\@NoPackageHyperref
+\relax
+\else\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref}
+\fi
+\makeatother
+
+
 % 使用 代码环境的宏包
-\usepackage{listings}
+\makeatletter
+\ifdefined\@NoPackageListings
+\relax
+\else\usepackage{listings}
+\fi
+
 
 %调整样式
 %修改页眉与页脚
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{\small 第\,\thechapter\,部分\quad #1}{}}
+
+
+
 %章节的
 \usepackage{titlesec}
 %目录的
 \usepackage{titletoc}
+
+
+
 %修改Chapter的格式
-\titleformat{\chapter}
+\makeatletter
+\ifdefined\@NoStyleChapter
+\relax
+\else\titleformat{\chapter}
     [display]
     {\centering\Huge\bfseries}
     {第\,\thechapter\,部分}
@@ -32,8 +60,22 @@
     {\contentspush{}}%\thecontentslabel\ }}
     {a}
     {\titlerule*[8pt]{.}\contentspage}
+\fi
+\makeatother
 
 %定义 BibTeX 图标
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+%对于 api 版本的控制 
+\makeatletter
+\ifdefined\@APIVersionFlag
+\def\apiversionn#1{\paragraph{\colorbox[rgb]{0.98,0.72,0.43}{\small#1}}}
+\def\apiversion#1{\paragraph*{\colorbox[rgb]{0.98,0.72,0.43}{\small#1}}}
+\else
+\def\apiversion#1{\relax}
+\def\apiversionn#1{\relax}
+\fi
+\makeatother
 
