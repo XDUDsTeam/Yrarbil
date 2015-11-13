@@ -35,6 +35,7 @@ $$ LANGUAGE plpgsql;
 
 ------------------------------------
 -- 创建 版本号记录表
+DROP TABLE table_version;
 CREATE TABLE table_version
 (
 	main	INT  NOT NULL,
@@ -56,6 +57,7 @@ VALUES(
 --  图书管理数据
 -------------------------------------
 -- 创建 图书记录表
+DROP TABLE table_bookinfo;
 CREATE TABLE table_bookinfo
 (
 	isbn			BIGINT NOT NULL PRIMARY KEY,
@@ -72,15 +74,18 @@ CREATE TABLE table_bookinfo
 
 --------------------------------------
 -- 创建 图书实体记录
+DROP TABLE table_bookitem;
 CREATE TABLE table_bookitem
 (
 	barcode			BIGINT NOT NULL PRIMARY KEY,
 	isbn			BIGINT NOT NULL,
 	on_shelf		BOOLEAN NOT NULL,
+	is_there		NOT NULL,
 	latest_opt_id	CHAR(64)
 );
 --------------------------------------
 -- 创建 图书操作记录 入库（购买）
+DROP TABLE table_bookopt_in;
 CREATE TABLE table_bookopt_in
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -92,6 +97,7 @@ CREATE TABLE table_bookopt_in
 
 --------------------------------------
 -- 创建 图书操作记录 出库（销毁）
+DROP TABLE table_bookopt_out;
 CREATE TABLE table_bookopt_out
 (
 	big_serial_number	TEXT NOT NULL PRIMARY KEY,
@@ -102,6 +108,7 @@ CREATE TABLE table_bookopt_out
 
 --------------------------------------
 -- 创建 图书操作记录 
+DROP TABLE table_bookopt_main;
 CREATE TABLE table_bookopt_main
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -113,6 +120,7 @@ CREATE TABLE table_bookopt_main
 
 --------------------------------------
 -- 创建 图书预约记录
+DROP TABLE table_bookopt_appointment;
 CREATE TABLE table_bookopt_appointment
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -123,6 +131,7 @@ CREATE TABLE table_bookopt_appointment
 
 --------------------------------------
 -- 创建 处罚记录
+DROP TABLE table_punish;
 CREATE TABLE table_punish
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -133,6 +142,7 @@ CREATE TABLE table_punish
 
 --------------------------------------
 -- 创建 读者数据
+DROP TABLE table_reader;
 CREATE TABLE table_reader
 (
 	barcode					BIGINT NOT NULL PRIMARY KEY,
@@ -147,6 +157,7 @@ CREATE TABLE table_reader
 
 --------------------------------------
 -- 创建 操作数据记录
+DROP TABLE table_opt;
 CREATE TABLE table_opt
 (
 	small_serial_number			INT NOT NULL,
