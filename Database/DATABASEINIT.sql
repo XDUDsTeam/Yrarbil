@@ -8,10 +8,16 @@
 -- 0.0.0.0-tag
 ------------------------------------
 
-
+\set ECHO_HIDDEN on
 \echo '*\nYrarbil 数据库初始化\n*\n'
 
 \echo '初始化 API 版本记录'
+
+
+
+
+
+
 
 
 ------------------------------------
@@ -19,8 +25,25 @@
 ------------------------------------
 
 ------------------------------------
+-- 删除已存在的表的
+CREATE OR REPLACE FUNCTION
+	drop_all_table(user_name IN VARCHAR,schema_name IN VARCHAR)
+	RETURNS VOID
+	AS $$
+	DECLARE statements CURSOR FOR
+		SELECT tablename FROM pg_tables
+			WHERE tableowner = user_name AND
+						schemaname = schema_name;
+	BEGIN
+		FOR stmt IN statements LOOP
+			EXECUTE 'DROP TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+		END LOOP;
+	END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------
 -- 大小流水号的比较
-CREATE OR REPLACE FUNCTION 
+CREATE OR REPLACE FUNCTION
 	func_sernum_eq(b TEXT,s INT,d DATE)
 	RETURNS BOOLEAN
 	AS $$
@@ -29,20 +52,25 @@ CREATE OR REPLACE FUNCTION
 	END;
 $$ LANGUAGE plpgsql;
 
+
+
+------------------------------------
+
+SELECT drop_all_table('qinka','public');
+
 ------------------------------------
 -- TABLES
 ------------------------------------
 
 ------------------------------------
 -- 创建 版本号记录表
-DROP TABLE table_version;
 CREATE TABLE table_version
 (
 	main	INT  NOT NULL,
 	snd		INT  ,
 	trd		INT  ,
 	fix		INT	 ,
-	tag		CHAR(40)	
+	tag		CHAR(40)
 );
 
 -- 添加数据
@@ -57,7 +85,6 @@ VALUES(
 --  图书管理数据
 -------------------------------------
 -- 创建 图书记录表
-DROP TABLE table_bookinfo;
 CREATE TABLE table_bookinfo
 (
 	isbn			BIGINT NOT NULL PRIMARY KEY,
@@ -74,18 +101,16 @@ CREATE TABLE table_bookinfo
 
 --------------------------------------
 -- 创建 图书实体记录
-DROP TABLE table_bookitem;
 CREATE TABLE table_bookitem
 (
 	barcode			BIGINT NOT NULL PRIMARY KEY,
 	isbn			BIGINT NOT NULL,
 	on_shelf		BOOLEAN NOT NULL,
-	is_there		NOT NULL,
+	is_there		BOOLEAN NOT NULL,
 	latest_opt_id	CHAR(64)
 );
 --------------------------------------
 -- 创建 图书操作记录 入库（购买）
-DROP TABLE table_bookopt_in;
 CREATE TABLE table_bookopt_in
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -97,7 +122,6 @@ CREATE TABLE table_bookopt_in
 
 --------------------------------------
 -- 创建 图书操作记录 出库（销毁）
-DROP TABLE table_bookopt_out;
 CREATE TABLE table_bookopt_out
 (
 	big_serial_number	TEXT NOT NULL PRIMARY KEY,
@@ -107,8 +131,7 @@ CREATE TABLE table_bookopt_out
 
 
 --------------------------------------
--- 创建 图书操作记录 
-DROP TABLE table_bookopt_main;
+-- 创建 图书操作记录
 CREATE TABLE table_bookopt_main
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -120,7 +143,6 @@ CREATE TABLE table_bookopt_main
 
 --------------------------------------
 -- 创建 图书预约记录
-DROP TABLE table_bookopt_appointment;
 CREATE TABLE table_bookopt_appointment
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -131,7 +153,6 @@ CREATE TABLE table_bookopt_appointment
 
 --------------------------------------
 -- 创建 处罚记录
-DROP TABLE table_punish;
 CREATE TABLE table_punish
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -142,14 +163,14 @@ CREATE TABLE table_punish
 
 --------------------------------------
 -- 创建 读者数据
-DROP TABLE table_reader;
 CREATE TABLE table_reader
 (
 	barcode					BIGINT NOT NULL PRIMARY KEY,
 	reader_name				TEXT NOT NULL,
 	idcard_type				CHAR(40),
 	idcard_id				TEXT,
-	debt					MONEY	
+	debt					MONEY,
+	enter_password		TEXT NOT NULL DEFAULT '111111'
 );
 
 
@@ -157,7 +178,6 @@ CREATE TABLE table_reader
 
 --------------------------------------
 -- 创建 操作数据记录
-DROP TABLE table_opt;
 CREATE TABLE table_opt
 (
 	small_serial_number			INT NOT NULL,
@@ -169,7 +189,14 @@ CREATE TABLE table_opt
 
 --------------------------------------
 -- 创建 系统管理员数据
-
+CREATE TABLE table_adminer
+(
+	admin_id			INT NOT NULL,
+	admin_passwd	TEXT NOT NULL DEFAULT '222222'
+);
 
 
 \echo '*\nYrarbil 数据库初始化完毕\n*\n'
+
+
+\set ECHO_HIDDEN off
