@@ -6,6 +6,7 @@
 -- API
 ------------------------------------
 -- 0.0.0.0-tag
+-- 0.0.0.0-B
 ------------------------------------
 
 \set ECHO_HIDDEN on
@@ -76,8 +77,15 @@ CREATE TABLE table_version
 -- 添加数据
 INSERT INTO table_version
 VALUES(
+	-- 见 API
 	0,0,0,0,
 	'tag'
+);
+INSERT INTO table_version
+VALUES(
+	-- 见 API
+	0,0,0,0,
+	'B'
 );
 
 
