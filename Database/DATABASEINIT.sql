@@ -6,12 +6,19 @@
 -- API
 ------------------------------------
 -- 0.0.0.0-tag
+-- 0.0.0.0-B
 ------------------------------------
 
-
+\set ECHO_HIDDEN on
 \echo '*\nYrarbil 数据库初始化\n*\n'
 
 \echo '初始化 API 版本记录'
+
+
+
+
+
+
 
 
 ------------------------------------
@@ -19,8 +26,25 @@
 ------------------------------------
 
 ------------------------------------
+-- 删除已存在的表的
+CREATE OR REPLACE FUNCTION
+	drop_all_table(user_name IN VARCHAR,schema_name IN VARCHAR)
+	RETURNS VOID
+	AS $$
+	DECLARE statements CURSOR FOR
+		SELECT tablename FROM pg_tables
+			WHERE tableowner = user_name AND
+						schemaname = schema_name;
+	BEGIN
+		FOR stmt IN statements LOOP
+			EXECUTE 'DROP TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+		END LOOP;
+	END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------
 -- 大小流水号的比较
-CREATE OR REPLACE FUNCTION 
+CREATE OR REPLACE FUNCTION
 	func_sernum_eq(b TEXT,s INT,d DATE)
 	RETURNS BOOLEAN
 	AS $$
@@ -28,6 +52,12 @@ CREATE OR REPLACE FUNCTION
 		RETURN (b=s||'@'||d);
 	END;
 $$ LANGUAGE plpgsql;
+
+
+
+------------------------------------
+
+SELECT drop_all_table('qinka','public');
 
 ------------------------------------
 -- TABLES
@@ -41,14 +71,21 @@ CREATE TABLE table_version
 	snd		INT  ,
 	trd		INT  ,
 	fix		INT	 ,
-	tag		CHAR(40)	
+	tag		CHAR(40)
 );
 
 -- 添加数据
 INSERT INTO table_version
 VALUES(
+	-- 见 API
 	0,0,0,0,
 	'tag'
+);
+INSERT INTO table_version
+VALUES(
+	-- 见 API
+	0,0,0,0,
+	'B'
 );
 
 
@@ -77,6 +114,7 @@ CREATE TABLE table_bookitem
 	barcode			BIGINT NOT NULL PRIMARY KEY,
 	isbn			BIGINT NOT NULL,
 	on_shelf		BOOLEAN NOT NULL,
+	is_there		BOOLEAN NOT NULL,
 	latest_opt_id	CHAR(64)
 );
 --------------------------------------
@@ -101,7 +139,7 @@ CREATE TABLE table_bookopt_out
 
 
 --------------------------------------
--- 创建 图书操作记录 
+-- 创建 图书操作记录
 CREATE TABLE table_bookopt_main
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
@@ -139,7 +177,8 @@ CREATE TABLE table_reader
 	reader_name				TEXT NOT NULL,
 	idcard_type				CHAR(40),
 	idcard_id				TEXT,
-	debt					MONEY	
+	debt					MONEY,
+	enter_password		TEXT NOT NULL DEFAULT '111111'
 );
 
 
@@ -156,4 +195,16 @@ CREATE TABLE table_opt
 );
 
 
+--------------------------------------
+-- 创建 系统管理员数据
+CREATE TABLE table_adminer
+(
+	admin_id			INT NOT NULL,
+	admin_passwd	TEXT NOT NULL DEFAULT '222222'
+);
+
+
 \echo '*\nYrarbil 数据库初始化完毕\n*\n'
+
+
+\set ECHO_HIDDEN off
