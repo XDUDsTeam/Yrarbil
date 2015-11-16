@@ -14,6 +14,7 @@
 \def\@NoStyleChapter{} % 设置不适用章节格式
 \def\@apiPart{} % 设置当前为 api 部分
 \def\@APIVersionFlag{}
+\def\@UsingAppendix{}
 \makeatother
 
 %使用 XeLaTeX 和 CTeX 套装 编译
@@ -45,10 +46,16 @@
     \section{数据库API}
     \apiversion{0.0.0.0-tag} 可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
     \begin{lstlisting}[language=SQL]
-    SELECT * FROM versions WHERE not vereq(ver,yourver);
+SELECT * FROM versions WHERE not vereq(ver,yourver);
     \end{lstlisting}
     其中 yourver 是指定的版本标号。
     \section{后端API}
     \section{前端API}
+    \newpage
+    \begin{appendices}
+    \section{dfsf}
+    
+    sdf
+    \end{appendices}
     
 \end{document}

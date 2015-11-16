@@ -6,7 +6,8 @@
 \makeatletter
 \ifdefined\@NoPagckageColor %! 如果定义了 ，不包含宏包color
 \relax
-\else\usepackage{color}
+\else
+\usepackage{color}
 \fi
 \makeatother
 
@@ -79,3 +80,17 @@
 \fi
 \makeatother
 
+
+
+
+%对于附录的设置
+\makeatletter
+\ifdefined\@UsingAppendix
+\usepackage[titletoc]{appendix}
+\renewcommand\appendixname{附录}
+\renewcommand\appendixpagename{附录}
+\appendixtitleon
+\else
+\relax
+\fi
+\makeatother
