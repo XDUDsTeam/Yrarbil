@@ -5,15 +5,67 @@
 %使用 XeLaTeX 和 CTeX 套装 编译
 \documentclass[UTF8]{ctexrep}
 
+%flag 设置
+\makeatletter
+\def\@NoStyleChapter{}
+\makeatother
+
+
+
 \input{Preamble}
 \input{Author}
 
 \title{架构设计报告}
-
 \begin{document}
     \maketitle
     \include{PrjIntr}
     \pdfbookmark[1]{text}{anchor}
     \tableofcontents
+    \part{前端架构}
+    前端负责域用户的交互等行为。
+    \chapter{桌面应用部分}
+    该部分为图书管理员处理图书的各项工作用的客户端。
+    相对应的设置，请保留到本地文件中。
+    \section{UI/交互部分}
+    \subsection{管理员登陆部分}
+    管理员使用用户名与密码
+    \footnote{改密码请遵寻UNIX类密码}
+    登入管理系统的界面。
+    \subsection{管理员退出部分}
+    管理员确认退出的界面。
+    \subsection{图书借阅部分}
+    在该部分，图书管理员先输入读者条码，然后再输入读者所借阅的图书的条码。
+    当一个读者借阅完之后，读者条码那一部分需要复位。
+    \subsection{图书归还部分}
+    这个步骤无需借阅着的条码。直接输入读者的条码即可。
+    如果有超期\footnote{应该有系统判断是否超期。}、污损\footnote{该部分应该有图书管理员负责。}的情况
+    \subsection{图书续借部分}
+    直接输入条码即可，然而续借次数有限制。
+    \subsection{借阅处罚部分}
+    对于各种原因的罚款，进行处理。记录。
+    \subsection{图书录入部分}
+    将一本书录入到系统中。
+    \subsection{图书处理部分}
+    将由于各种原因的出书处理，记录在案，同时图书销毁。
+    \section{数据处理部分}
+    负责各类数据处理
+    \subsection{数据请求}
+    将UI部分要求的数据请求进行处理，然后请求。
+    \subsection{数据解析}
+    将后端返回的数据处理之后，发回UI部分。
+    \subsection{数据处理}
+    按照UI的需求，处理数据。
+    \chapter{网页交互部分}
+    基于网页的技术。
+    \section{访客查询部分}
+    \subsection{图书信息查询}
+    \subsection{图书状态查询}
+    \section{读者查询部分}
+    \subsection{预约}
+    \subsection{续借}
+    \part{后端架构}
+    \setcounter{chapter}{0}
+    \chapter{数据库部分}
+    \chapter{请求处理部分}
     
 \end{document}

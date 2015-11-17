@@ -3,9 +3,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Version 0.0.0.0-初始
+%% Version 0.0.0.0-B
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%确定该文档
+\def\apidPart{}
+%%%%%%
+%% 版本
+%%%%%%
+\def\apiver{0.0.0.0-B}
 
 %%%%%%
 % flag 设置
@@ -20,12 +28,6 @@
 %使用 XeLaTeX 和 CTeX 套装 编译
 \documentclass[UTF8]{ctexart}
 
-%确定该文档
-\def\apidPart{}
-%%%%%%
-%% 版本
-%%%%%%
-\def\apiver{0.0.0.0-tag}
 
 
 \include{Author}
@@ -49,13 +51,14 @@
 SELECT * FROM versions WHERE not vereq(ver,yourver);
     \end{lstlisting}
     其中 yourver 是指定的版本标号。
+    \apiversion{0.0.0.0-B} text todo
+    
     \section{后端API}
     \section{前端API}
     \newpage
     \begin{appendices}
-    \section{dfsf}
-    
-    sdf
+    \section{文档网址}
+    todo 
     \end{appendices}
     
 \end{document}

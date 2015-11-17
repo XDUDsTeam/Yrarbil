@@ -54,14 +54,14 @@
     {第\,\thechapter\,部分}
     {1em}
     {}
+\fi
 %修改Chapter的目录格式
 \titlecontents{chapter}
-    [0pt]
-    {\addvspace{2pt}\filright}
-    {\contentspush{}}%\thecontentslabel\ }}
-    {a}
-    {\titlerule*[8pt]{.}\contentspage}
-\fi
+[0pt]
+{\addvspace{2pt}\filright}
+{\contentspush{}}%\thecontentslabel\ }}
+{a}
+{\titlerule*[8pt]{.}\contentspage}
 \makeatother
 
 %定义 BibTeX 图标
@@ -71,9 +71,23 @@
 
 %对于 api 版本的控制 
 \makeatletter
+\ifx \apiver \@empty
+\def\apiver{!!}
+\fi
 \ifdefined\@APIVersionFlag
-\def\apiversionn#1{\paragraph{\colorbox[rgb]{0.98,0.72,0.43}{\small#1}}}
-\def\apiversion#1{\paragraph*{\colorbox[rgb]{0.98,0.72,0.43}{\small#1}}}
+\def\Color@now#1{\colorbox[rgb]{0.98,0.72,0.43}{#1}}
+\def\Color@old#1{\colorbox[rgb]{0.79,0.79,0.58}{#1}}
+\def\APIColor#1#2{
+    \def\tmp@a{#1}
+    \def\tmp@b{#2}
+    \ifx \tmp@a \tmp@b
+    \Color@new{#1}
+    \else
+    \Color@old{#1}
+    \fi
+    }
+\def\apiversionn#1{\paragraph{\APIColor{\small#1}{\apiver}}}
+\def\apiversion#1{\paragraph*{\APIColor{\small#1}{\apiver}}}
 \else
 \def\apiversion#1{\relax}
 \def\apiversionn#1{\relax}
