@@ -26,8 +26,13 @@
 \makeatletter
 \ifdefined\@NoPackageListings
 \relax
-\else\usepackage{listings}
+\else
+\usepackage{listings}
+\lstset{breaklines}
+\lstset{basicstyle=\sffamily,keywordstyle=\bfseries,commentstyle=\rmfamily\itshape,escapechar='}
+\lstset{flexiblecolumns}
 \fi
+\makeatother
 
 
 %调整样式
@@ -106,5 +111,12 @@
 \appendixtitleon
 \else
 \relax
+\fi
+\makeatother
+
+% 设置HTTP请求参数显示的背景色
+\makeatletter
+\ifdefined\@RequestArgColor
+\def\reqargclr#1{\item[{\colorbox[rgb]{1.00,0.90,1.00}{#1}}]}
 \fi
 \makeatother

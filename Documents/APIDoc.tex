@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Version 0.0.0.0-B
+%% Version 0.0.0.0-B6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -13,7 +13,7 @@
 %%%%%%
 %% 版本
 %%%%%%
-\def\apiver{0.0.0.0-B}
+\def\apiver{0.0.1.0}
 
 %%%%%%
 % flag 设置
@@ -22,6 +22,7 @@
 \def\@NoStyleChapter{} % 设置不适用章节格式
 \def\@apiPart{} % 设置当前为 api 部分
 \def\@APIVersionFlag{}
+\def\@RequestArgColor{\relax}
 \def\@UsingAppendix{}
 \makeatother
 
@@ -45,18 +46,48 @@
     本 API 文档是约束前后端的行为的文档。规定了前后端之间的行为规范。但值得注意的是，前后端不一定是满足这个文档的。当前的 API 版本是 \apiver 。
     \subsection{那些部分会遵循api}
     原则上来说，整个项目均会按照此 api 文档构建。但主要的是在数据库，后端，与前端部分支持。
+    
+    
     \section{数据库API}
     \apiversion{0.0.0.0-tag} 可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
     \begin{lstlisting}[language=SQL]
-SELECT * FROM versions WHERE not vereq(ver,yourver);
+SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \end{lstlisting}
     其中 yourver 是指定的版本标号。
     \apiversion{0.0.0.0-B} text todo
     
     \section{后端API}
-    \section{前端API}
+    后端 API 主要以 HTTP 请求为主。
+    \subsection{用户认证API}
+    \apiversion{0.0.1.0-base} 管理员登陆
+    \begin{description}
+        \item[访问URL] http://hostname:port/b8ab91a6[\textit{safe}]/fc8252b7[\textit{safe}]
+        \footnote{
+            \textbf{login} 英文单词 md5值是$b8abe8f5a587a4c69685b17a954f8a3f$，
+            SHA256值是 
+            $6c1420b8f3be7a61357ecc82a1c391dffe438930c103466b1660625e42ac91a6$。
+            }
+        \footnote{
+            \textbf{admin} 英文单词的
+            md5值是 $456b7016a916a4b178dd72b947c152b7 $,
+            SHA256 值是
+            $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
+            }
+        \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}
+        \item[请求方式] \textbf{POST}
+        \reqargclr{用户ID}\footnote{这个颜色的背景，表示HTTP请求参数，后同。}
+        $$uid=[id]$$
+        其中id为用户登录的id，不强制为数字。
+        \reqargclr{密码}
+         $$key=[md5\, of\, password][safe]$$
+         其中第一部分是密码的md5值。
+        \item[返回数据]请求返回的数据是 \textbf{JSON} 数据。具体返回内容有：
+        特定的临时ID密钥，用于简化之后操作的认证；
+        时限，长度为小时，限定使用实现\footnote{可选，可无}。
+    \end{description}
     \newpage
     \begin{appendices}
+    \section{参考文档}
     \section{文档网址}
     todo 
     \end{appendices}
