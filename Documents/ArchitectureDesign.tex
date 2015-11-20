@@ -51,8 +51,18 @@
     负责各类数据处理
     \subsection{数据请求}
     将UI部分要求的数据请求进行处理，然后请求。
+	\begin{description}
+	\item[登录] 将UI传入的数据，制作成所需访问的URL与对应参数，同时生成HTTP
+		请求。
+	\end{description}
     \subsection{数据解析}
     将后端返回的数据处理之后，发回UI部分。
+	\begin{description}
+	\item[登录] 返回的是JSON数据，要求将JSON解析。JSON数据要么为具体内容
+		\footnote{具体数据格式，详见API文档。}
+		，要么数错误信息。
+	\item[登出]
+	\end{description}
     \subsection{数据处理}
     按照UI的需求，处理数据。
     \chapter{网页交互部分}
