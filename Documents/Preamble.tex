@@ -92,10 +92,10 @@
     \fi
     }
 \def\apiversionn#1{\paragraph{\APIColor{\small#1}{\apiver}}}
-\def\apiversion#1{\paragraph*{\APIColor{\small#1}{\apiver}}}
+\def\apiversion#1#2{\paragraph{{\colorbox[rgb]{0.98,0.72,0.43}{#1}} #2}\stepcounter{paragraph}}
 \else
-\def\apiversion#1{\relax}
-\def\apiversionn#1{\relax}
+\def\apiversion#1{#1}
+\def\apiversionn#1{#1}
 \fi
 \makeatother
 
@@ -118,5 +118,19 @@
 \makeatletter
 \ifdefined\@RequestArgColor
 \def\reqargclr#1{\item[{\colorbox[rgb]{1.00,0.90,1.00}{#1}}]}
+\fi
+\makeatother
+
+
+% 使得脚注标号随页码更新
+\makeatletter
+
+\ifdefined\@FootnoteWithPage
+\usepackage{chngcntr}
+\counterwithin{paragraph}{section}
+\counterwithin{paragraph}{subsection}
+\counterwithin{paragraph}{subsubsection}
+\counterwithin{footnote}{paragraph}
+\renewcommand\thefootnote{\theparagraph-\alph{footnote}}
 \fi
 \makeatother

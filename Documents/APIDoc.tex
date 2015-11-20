@@ -24,6 +24,7 @@
 \def\@APIVersionFlag{}
 \def\@RequestArgColor{\relax}
 \def\@UsingAppendix{}
+\def\@FootnoteWithPage{}
 \makeatother
 
 %使用 XeLaTeX 和 CTeX 套装 编译
@@ -49,31 +50,34 @@
     
     
     \section{数据库API}
-    \apiversion{0.0.0.0-tag} 可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
+    \apiversion{0.0.0.0-tag}{版本检查}
+    可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
     \begin{lstlisting}[language=SQL]
 SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \end{lstlisting}
     其中 yourver 是指定的版本标号。
-    \apiversion{0.0.0.0-B} text todo
+    \apiversion{0.0.0.0-B}{text todo}
     
     \section{后端API}
     后端 API 主要以 HTTP 请求为主。
     \subsection{用户认证API}
-    \apiversion{0.0.1.0-base} 管理员登陆
+    \apiversion{0.0.1.0-base}{管理员登陆}
     \begin{description}
-        \item[访问URL] http://hostname:port/b8ab91a6[\textit{safe}]/fc8252b7[\textit{safe}]
+        \item[访问URL] http://hostname:port/b8ab91a6
         \footnote{
             \textbf{login} 英文单词 md5值是$b8abe8f5a587a4c69685b17a954f8a3f$，
             SHA256值是 
             $6c1420b8f3be7a61357ecc82a1c391dffe438930c103466b1660625e42ac91a6$。
-            }
+        }
+        [\textit{safe}]
+        \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}/fc8252b7
         \footnote{
             \textbf{admin} 英文单词的
             md5值是 $456b7016a916a4b178dd72b947c152b7 $,
             SHA256 值是
             $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
-            }
-        \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}
+        }
+        [\textit{safe}]
         \item[请求方式] \textbf{POST}
         \reqargclr{用户ID}\footnote{这个颜色的背景，表示HTTP请求参数，后同。}
         $$uid=[id]$$
@@ -85,7 +89,27 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         特定的临时ID密钥，用于简化之后操作的认证；
         时限，长度为小时，限定使用实现\footnote{可选，可无}。
     \end{description}
-    \newpage
+    \apiversion{0.0.1.0-base}{管理员退出}
+    \begin{description}
+        \item[访问URL] http://hostname:port/a050ba73
+        \footnote{
+            单词 \textbf{logout} 的
+            MD5值是$a05080965b04f4d190bb94b552bea56c $,
+            SHA256 值是
+            $60b2a0ba73317dce9502417ce5bdb75d0a16067848647b9a5f5f4e040397b20f$。
+        }
+        [\textit{safe}]/fc8252b7[\textit{safe}]
+        \item[请求方式] \textbf{POST}
+        \reqargclr{用户ID}
+        \footnote{这个请求与临时ID密钥为二选一。}
+        $$uid=[id]$$
+        其中id为用户登陆时的id，不强制为数字。
+        \reqargclr{临时ID密钥}
+        \footnote{用户ID，可使该用户对应的所有临时ID密钥下线。}
+        $$tidk=[key]$$
+        其中key是临时ID密钥。
+        \end{description}
+%    \newpage
     \begin{appendices}
     \section{参考文档}
     \section{文档网址}
