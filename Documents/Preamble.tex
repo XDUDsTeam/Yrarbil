@@ -28,6 +28,7 @@
 \relax
 \else
 \usepackage{listings}
+\usepackage{xcolor}
 \lstset{breaklines}
 \lstset{basicstyle=\sffamily,keywordstyle=\bfseries,commentstyle=\rmfamily\itshape,escapechar='}
 \lstset{flexiblecolumns}
@@ -132,5 +133,29 @@
 \counterwithin{paragraph}{subsubsection}
 \counterwithin{footnote}{paragraph}
 \renewcommand\thefootnote{\theparagraph-\alph{footnote}}
+\fi
+\makeatother
+
+
+% 定义 JSON
+\makeatletter
+\ifdefined\@NoPackageListings
+\relax
+\else
+\ifdefined\@lst@json@define
+\lstdefinelanguage{JSON}
+{
+    keywords={true,false,null}
+}
+\fi
+\lstdefinelanguage{JavaScript}%
+{
+    morekeywords={true,false,null},%
+    alsoletter={:},
+    moredelim=[s][{\color[rgb]{0.67,0.00,0.67}}]{"}{"},
+    moredelim=[s][{\color[rgb]{0.36,0.67,0.78}}]{:"}{"},%
+    identifierstyle=\color{blue},
+    emph={:}, emphstyle=\color{red}
+}[keywords,comments,strings]%
 \fi
 \makeatother

@@ -25,6 +25,7 @@
 \def\@RequestArgColor{\relax}
 \def\@UsingAppendix{}
 \def\@FootnoteWithPage{}
+\def\@lst@json@define{} %json
 \makeatother
 
 %使用 XeLaTeX 和 CTeX 套装 编译
@@ -36,6 +37,18 @@
 \include{Preamble}
 
 \title{Yrarbil's API Document \thanks{version : \apiver}}
+
+%%%%
+%% API 常用
+%%%%
+\def\safe{[\textit{safe}]}
+\def\GET{\textbf{GET}}
+\def\POST{\textbf{POST}}
+\def\bfJSON{\textbf{JSON}}
+
+
+
+
 \begin{document}
     \maketitle
     \newpage
@@ -49,6 +62,15 @@
     原则上来说，整个项目均会按照此 api 文档构建。但主要的是在数据库，后端，与前端部分支持。
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     \section{数据库API}
     \apiversion{0.0.0.0-tag}{版本检查}
     可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
@@ -58,11 +80,64 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     其中 yourver 是指定的版本标号。
     \apiversion{0.0.0.0-B}{text todo}
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     \section{后端API}
     后端 API 主要以 HTTP 请求为主。
+    
+    
+    \subsection{未分类API}
+    
+    \apiversion{0.0.1.0-base}{访问“主页”}
+    访问主页
+    \footnote{http://hostname:port/}
+    可以获取一些信息。
+    \begin{description}
+        \item[访问URL] http://hostname:port/
+        \item[访问方式] \textbf{GET}
+        \item[返回数据] 标准 HTML 代码。
+    \end{description}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     \subsection{用户认证API}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     \apiversion{0.0.1.0-base}{管理员登陆}
     \begin{description}
+   
         \item[访问URL] http://hostname:port/b8ab91a6
         \footnote{
             \textbf{login} 英文单词 md5值是$b8abe8f5a587a4c69685b17a954f8a3f$，
@@ -78,17 +153,39 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
         }
         [\textit{safe}]
+        
         \item[请求方式] \textbf{POST}
-        \reqargclr{用户ID}\footnote{这个颜色的背景，表示HTTP请求参数，后同。}
+        
+        \reqargclr{用户ID}\label{par:id}
+        \footnote{这个颜色的背景，表示HTTP请求参数，后同。}
         $$uid=[id]$$
         其中id为用户登录的id，不强制为数字。
-        \reqargclr{密码}
+        
+        \reqargclr{密码}\label{par:key}
          $$key=[md5\, of\, password][safe]$$
          其中第一部分是密码的md5值。
+         
         \item[返回数据]请求返回的数据是 \textbf{JSON} 数据。具体返回内容有：
         特定的临时ID密钥，用于简化之后操作的认证；
         时限，长度为小时，限定使用实现\footnote{可选，可无}。
+         \\ 可能的返回数据：
+        \begin{lstlisting}[language=JavaScript]
+{
+   "tidk":"************************",
+   "time":24
+}  
+        \end{lstlisting}
+        
+        
     \end{description}
+    
+    
+    
+    
+    
+    
+    
+
     \apiversion{0.0.1.0-base}{管理员退出}
     \begin{description}
         \item[访问URL] http://hostname:port/a050ba73
@@ -99,21 +196,96 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             $60b2a0ba73317dce9502417ce5bdb75d0a16067848647b9a5f5f4e040397b20f$。
         }
         [\textit{safe}]/fc8252b7[\textit{safe}]
+        
         \item[请求方式] \textbf{POST}
-        \reqargclr{用户ID}
+        
+        \reqargclr{用户ID}\label{par:logout:id}
         \footnote{这个请求与临时ID密钥为二选一。}
         $$uid=[id]$$
         其中id为用户登陆时的id，不强制为数字。
-        \reqargclr{临时ID密钥}
+        
+        \reqargclr{临时ID密钥}\label{par:logout:tidk}
         \footnote{用户ID，可使该用户对应的所有临时ID密钥下线。}
         $$tidk=[key]$$
         其中key是临时ID密钥。
+        
+        \item[返回数据] 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
+        \\可能返回的信息：
+        \begin{lstlisting}[language=JavaScript]
+{
+    "status":"success",
+    "logoutcount":2
+}
+        \end{lstlisting}\label{par:logout:example}
+        其中 \textbf{logoutcount} 是退出用户数量。
     \end{description}
+    
+    
+    
+    
+    
+    
     \apiversion{0.0.1.0-base}{读者登录}
 		用于读者的登录。
 		\begin{description}
-		\item[]
+            
+		\item[访问URL] http://hostname:port/5ece85ba
+        \footnote{单词 \textbf{reader} 的
+            MD5 值是 
+            $5ece7ae3f6950b744840b1d4c42e3a8e$，
+            SHA256 值是
+            $cd546fe85ba55d958a7fd1b2733f6f8f1ba5e4e099ddf0aad80b6d770b2eed9e$。
+            }
+        \safe/fc8252b7\safe
+        
+        \item[请求方式] \POST
+        
+        \reqargclr{用户ID} 参见 \ref{par:id}。
+        \reqargclr{密码} 参见 \ref{par:key}。
+        \item[返回数据] 返回的数据将是 \bfJSON 数据。返回的内容中包括临时ID密钥，与有效时间，以分钟计。
+        \\可能返回的数据：
+        \begin{lstlisting}[language=JavaScript]
+{
+    "tidk":"****************",
+    "time":120
+}
+        \end{lstlisting}
 		\end{description}
+        
+        
+        
+        
+        
+        \apiversion{0.0.1.0-base}{读者退出}
+        \begin{description}
+            \item[访问URL] http://hostname:port/5ece85ba\safe/fc8252b7\safe
+            
+            \item[请求方式] \POST
+            
+            \reqargclr{用户ID}
+            参见 \ref{par:logout:id}。
+            
+            \reqargclr{临时ID密钥}
+            参见 \ref{par:logout:tidk}。
+            
+            
+            \item[返回数据] 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
+            \\可能返回的信息：
+            \begin{lstlisting}[language=JavaScript]
+{
+    "status":"failure"
+}
+            \end{lstlisting}
+            另外一个例子请参见 \ref{par:logout:example}。
+        \end{description}
+        
+        
+        
+        
+        
+        
+        
+     
     \newpage
     \begin{appendices}
     \section{参考文档}
