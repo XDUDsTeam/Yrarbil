@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Version 0.0.1.0-base
+%% Version 0.1.0.0-base
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -13,7 +13,7 @@
 %%%%%%
 %% 版本
 %%%%%%
-\def\apiver{0.0.1.0}
+\def\apiver{0.1.0.0-base}
 
 %%%%%%
 % flag 设置
@@ -45,6 +45,10 @@
 \def\GET{\textbf{GET}}
 \def\POST{\textbf{POST}}
 \def\bfJSON{\textbf{JSON}}
+\def\viaurl#1{\item[访问URL] #1}
+\def\viareq#1{\item[访问方式] #1}
+\def\rtdata{\item[返回数据]}
+
 
 
 
@@ -56,10 +60,27 @@
     \pdfbookmark[1]{text}{anchor}
     \tableofcontents
     \newpage
+
+
+    \section{API 改动说明}
+
+    \subsection{API 0.0.0.0-dbtag}
+    该 API 标志的，首先，意味着这个数据库可查询其中支持的各个 API 版本。其次，意味着这是一个标准
+      \footnote{按照这个API 文档构件的后端。并且从理论上，非配套的前后端也可以交互。}
+    后端。最后，一般前端是无法直接访问数据库的，然而后端是要访问数据库的。
+
+    \subsection{API 0.0.0.0-betag}
+    该 API 标志着可以通过特定方式查询后端与数据库支持的 API 的版本。这也是一个标准后端的应有的。
+
+    \subsection{DEL 0.0.0.0-tag,0.0.0.0-B,0.0.1.0-base}
+    重新 整理API。
+
     \section{API说明}
     本 API 文档是约束前后端的行为的文档。规定了前后端之间的行为规范。但值得注意的是，前后端不一定是满足这个文档的。当前的 API 版本是 \apiver 。
     \subsection{那些部分会遵循api}
     原则上来说，整个项目均会按照此 api 文档构建。但主要的是在数据库，后端，与前端部分支持。
+    
+
     
     
     
@@ -72,13 +93,12 @@
     
     
     \section{数据库API}
-    \apiversion{0.0.0.0-tag}{版本检查}
+    \apiversion{0.0.0.0-dstag}{版本检查}
     可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
     \begin{lstlisting}[language=SQL]
 SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \end{lstlisting}
-    其中 yourver 是指定的版本标号。
-    \apiversion{0.0.0.0-B}{text todo}
+    其中 yourver 是指定的版本标号。
     
     
     
@@ -104,14 +124,14 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     
     \subsection{未分类API}
     
-    \apiversion{0.0.1.0-base}{访问“主页”}
+    \apiversion{0.1.0.0-base}{访问“主页”}
     访问主页
     \footnote{http://hostname:port/}
     可以获取一些信息。
     \begin{description}
-        \item[访问URL] http://hostname:port/
-        \item[访问方式] \textbf{GET}
-        \item[返回数据] 标准 HTML 代码。
+        \viaurl http://hostname:port/
+        \viareq \GET
+        \rtdata 标准 HTML 代码。
     \end{description}
     
     
@@ -135,7 +155,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     
     
     
-    \apiversion{0.0.1.0-base}{管理员登陆}
+    \apiversion{0.1.0.0-base}{管理员登陆}
     \begin{description}
    
         \item[访问URL] http://hostname:port/b8ab91a6
