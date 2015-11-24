@@ -19,13 +19,14 @@ after_success: |
     echo "config done"
     cd ~
     pwd
-    export RELPATH=$(pwd)
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
+    cd YrarbilRelease
+    export RELPATH=$(pwd)s
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
-    cp *.pdf $PELAPTH
+    cp *.pdf $RELAPTH
     echo "copy done"
     cd $RELPATH
     git add .
