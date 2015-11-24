@@ -19,7 +19,7 @@ after_success: |
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     git config --global user.name "travis_auto"
-    git config --global user.email= "inka@live.com"
+    git config --global user.email "qinka@live.com"
     cp *.pdf YrarbilRelease/
     git add .
     git commit -am"$(date)"
