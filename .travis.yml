@@ -18,37 +18,10 @@ after_success: |
     git config --global user.email "qinka@live.com"
     echo "config done"
     cd ~
-    mkdir .ssh
-    touch ~/.ssh/id_rsa
-    echo "-----BEGIN RSA PRIVATE KEY-----" >> ~/.ssh/id_rsa
-    echo "MIIEowIBAAKCAQEAvvLduFhJRxsVIuOaojVGzshKazMyg1QuJskbX9IWuxspV5B1" >> ~/.ssh/id_rsa
-    echo "GPyUIOhsmeUDQ+zBMg0VsUnPGj4BED+flrYHs1KgtiU0V26ksSfsnULhEDUsslB0" >> ~/.ssh/id_rsa
-    echo "YHRsl+e3eYa7j+q5hvQ2/tbnJAbtewdDpODgEzu8Ic0BGgAaMDyITgZGd6jU2r8M" >> ~/.ssh/id_rsa
-    echo "YPYYWqYusPw+B/E8Sv19237FhItVWzHpXDtZvdpkoMCPPga91UBzMycMn4craeiG" >> ~/.ssh/id_rsa
-    echo "qoXNWJhLrm90SxmdDUAzCkugkdS5V7GkDjgwZYoOE7AaPtsb1I0GC35xYWaF8E3H" >> ~/.ssh/id_rsa
-    echo "9VuYfBmCALITm0ThmsWHXmuwDyJez83+/l694QIDAQABAoIBAQC0mj0/eLGGQYVS" >> ~/.ssh/id_rsa
-    echo "RHgjZ8SbHDHXBsuGD36/TINJtAmv2tbVbVpz0aHBJlRhkovuGOX6EworbyYlKfQT" >> ~/.ssh/id_rsa
-    echo "jDnDcFQENeivnqzM7Wdz79EKRRFeJQ0rcpFAEZ4MZyvQE7EfQ+FKVX4WtuhT2QGQ" >> ~/.ssh/id_rsa
-    echo "1aQTNGZ7ioo8Zgvera4XZYl+Us0fqrsf1kcLpFmwXml3c9Ttj4CrO5snfLoVqFCf" >> ~/.ssh/id_rsa
-    echo "uUYNkdtQJTZgMJQOf0zVFguCBBk8H+sWo6pmVk5Q0wKbk65ZTqjr8OdQZ7mq8LbR" >> ~/.ssh/id_rsa
-    echo "7p2Y49z3frL9aWL870hrIM6/8MYF0fGkakE8VznH8hG9iwJ15mJ2/e9wSbNvsxFi" >> ~/.ssh/id_rsa
-    echo "gowiSMmBAoGBAOlaZgBKSXdhu3nFC/IcNWQkd6PbEHM9viG6x5o0JwNNgPAhvLHP" >> ~/.ssh/id_rsa
-    echo "NjMCPKfl4YMi44tlUXVEsoSudJ6UDxzzv3eG3FGv+wqIWTyU+enJMd3az5OB7RFz" >> ~/.ssh/id_rsa
-    echo "3yR4Z8FqDw82ITnreJIfnqyISD7W4sM6hoIiDpbnEq+9wLvn9FKJ91cJAoGBANF6" >> ~/.ssh/id_rsa
-    echo "8KeS5d1XWAtJu6moMuTNOT9Ueelug39FWZePQ0qtPU2WCjMGrROwkTn59JFselyZ" >> ~/.ssh/id_rsa
-    echo "G9mtH0Olat7w5uunBfPBo6y/hxW1QRlREDn4XdQmr3/Um5/j9g4IIPcVUulhsgyl" >> ~/.ssh/id_rsa
-    echo "r+juuOxiplhVynUGATxNp2isCpMIgp0gHgFhPs4ZAoGACHPz2fLW8nIh3mla42xO" >> ~/.ssh/id_rsa
-    echo "KtB/XPokgGguKP6hGF7nQuFd2FUAhthguDxOgi57msp6v6Pt7XeNl+zR4KSwX3Yc" >> ~/.ssh/id_rsa
-    echo "63GBLZxYVatWwDENVICrQ8QXXNqKAeXWoXWTHJiA7yYg0f5Loc9vagSNyWjzUese" >> ~/.ssh/id_rsa
-    echo "0Dv3l1PLg342Kxhd61eAFDECgYBO+qAjPgJGanj6gIktlQnjM/DijLIOLamMYZQ+" >> ~/.ssh/id_rsa
-    echo "zTfcvuY/C1O7G0hEBS0sA66O6axUnzFd56TC92oMth0KOgXHenmAVxHSQG1T4zlP" >> ~/.ssh/id_rsa
-    echo "8fFGXHOMqZcnOGZ7sdrj7Xk+HqRnmkxxcRftn+ABrA7SAjqTBuAYWcz+1JWSMhq+" >> ~/.ssh/id_rsa
-    echo "AHESeQKBgBuT/uEmMo50As6mrTMoAJCkAH/jUne0XkZub9GOb2b2r7d+Hf840hcP" >> ~/.ssh/id_rsa
-    echo "pESvFzuOLNsRFdN+4uDiNd0CPXXWN9nwv66eK+97SgUj1BXS3zyoWJ/KVV8xfldv" >> ~/.ssh/id_rsa
-    echo "f6x4xgs0jLlQ8eeHl/Ob/JrLiN3H9ZGCpqv0VUUq/JKRy2aRTsoe" >> ~/.ssh/id_rsa
-    echo "-----END RSA PRIVATE KEY-----" >> ~/.ssh/id_rsa
     eval "$(ssh-agent -s)"
-    ssh-add -K ~/.ssh/id_rsa
+    cat $DEPLOY_KEY > .travis/deploy_key.pem
+    chmod 600 .travis/deploy_key.pem
+    ssh-add .travis/deploy_key.pem
     git clone git@github.com:XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
