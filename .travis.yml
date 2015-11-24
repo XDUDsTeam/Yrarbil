@@ -17,18 +17,24 @@ after_success: |
     git config --global user.name "travis_auto"
     git config --global user.email "qinka@live.com"
     echo "config done"
+    cd ~
+    pwd
+    export RELPATH=$(pwd)
+    git clone https://github.com/XDUDsTeam/YrarbilRelease.git
+    echo "clone done"
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
-    git clone https://github.com/XDUDsTeam/YrarbilRelease.git
-    echo "clone done"
-    cp *.pdf YrarbilRelease/
+    cp *.pdf $PELAPTH
     echo "copy done"
+    cd $RELPATH
     git add .
     git commit -am"$(date)"
     echo "commit done"
     echo "qinka@live.com" > git_push.in
     echo $GITHUB_API_KEY >> git_push.in
     git push origin master < git_push.in
+    cd ..
+    rm -r $RELPATH
     cd "$TRAVIS_BUILD_DIR"
   fi
