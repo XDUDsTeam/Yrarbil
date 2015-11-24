@@ -1,7 +1,7 @@
 # To auto build what we need.
 
 before_install:
-  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex latex-cjk-xecjk cjk-latex latex-cjk-chinese"
+  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex"
   - "sudo apt-get install xfonts-wgy ttf-wqy-microhei ttf-wqy-zenhei"
 
 script:
