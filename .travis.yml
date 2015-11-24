@@ -21,8 +21,8 @@ after_success: |
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
-    cd YrarbilRelease
     export RELPATH=$(pwd)
+    cd YrarbilRelease
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
@@ -32,8 +32,6 @@ after_success: |
     git add .
     git commit -am"$(date)"
     echo "commit done"
-    echo "qinka@live.com" > git_push.in
-    echo $GITHUB_API_KEY >> git_push.in
     git push origin master < git_push.in
     cd ~
     sudo rm -rf $RELPATH
