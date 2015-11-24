@@ -6,11 +6,11 @@ before_install:
 
 
 script:
-  - mkdir __build
-  - xelatex -output-directory __build Documents/APIDoc.tex
-  - xelatex -output-directory __build Documents/ArchitectureDesign.tex
-  - xelatex -output-directory __build Documents/DemandAnalysis.tex
-  - xelatex -output-directory __build Documents/TestReport.tex
+  - cd Documents
+  - xelatex -output-directory APIDoc.tex
+  - xelatex -output-directory ArchitectureDesign.tex
+  - xelatex -output-directory DemandAnalysis.tex
+  - xelatex -output-directory TestReport.tex
 
 after_success: |
   if [ -n "$GITHUB_API_KEY" ]; then
@@ -19,7 +19,7 @@ after_success: |
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     git config user.name='travis_auto' user.email='qinka@live.com'
-    cp -r __build YrarbilRelease/Yrarbil_Documents
+    cp *.pdf YrarbilRelease/
     git add .
     git commit -am"$(date)"
     git push -f -q https://Qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git-master master &2>/dev/null
