@@ -158,13 +158,13 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \apiversion{0.1.0.0-base}{管理员登陆}
     \begin{description}
    
-        \item[访问URL] http://hostname:port/b8ab91a6
+        \viaurl http://hostname:port/b8ab91a6
         \footnote{
             \textbf{login} 英文单词 md5值是$b8abe8f5a587a4c69685b17a954f8a3f$，
             SHA256值是 
             $6c1420b8f3be7a61357ecc82a1c391dffe438930c103466b1660625e42ac91a6$。
         }
-        [\textit{safe}]
+        \safe
         \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}/fc8252b7
         \footnote{
             \textbf{admin} 英文单词的
@@ -172,9 +172,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             SHA256 值是
             $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
         }
-        [\textit{safe}]
+        \safe
         
-        \item[请求方式] \textbf{POST}
+        \viareq \POST
         
         \reqargclr{用户ID}\label{par:id}
         \footnote{这个颜色的背景，表示HTTP请求参数，后同。}
@@ -185,7 +185,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
          $$key=[md5\, of\, password][safe]$$
          其中第一部分是密码的md5值。
          
-        \item[返回数据]请求返回的数据是 \textbf{JSON} 数据。具体返回内容有：
+        \rtdata 请求返回的数据是 \bfJSON 数据。具体返回内容有：
         特定的临时ID密钥，用于简化之后操作的认证；
         时限，长度为小时，限定使用实现\footnote{可选，可无}。
          \\ 可能的返回数据：
@@ -206,18 +206,18 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     
     
 
-    \apiversion{0.0.1.0-base}{管理员退出}
+    \apiversion{0.1.0.0-base}{管理员退出}
     \begin{description}
-        \item[访问URL] http://hostname:port/a050ba73
+        \viaurl http://hostname:port/a050ba73
         \footnote{
             单词 \textbf{logout} 的
             MD5值是$a05080965b04f4d190bb94b552bea56c $,
             SHA256 值是
             $60b2a0ba73317dce9502417ce5bdb75d0a16067848647b9a5f5f4e040397b20f$。
         }
-        [\textit{safe}]/fc8252b7[\textit{safe}]
+        \safe/fc8252b7\safe]
         
-        \item[请求方式] \textbf{POST}
+        \viareq \POST
         
         \reqargclr{用户ID}\label{par:logout:id}
         \footnote{这个请求与临时ID密钥为二选一。}
@@ -229,7 +229,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         $$tidk=[key]$$
         其中key是临时ID密钥。
         
-        \item[返回数据] 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
+        \rtdata 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
         \\可能返回的信息：
         \begin{lstlisting}[language=JavaScript]
 {
@@ -245,11 +245,11 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     
     
     
-    \apiversion{0.0.1.0-base}{读者登录}
+    \apiversion{0.1.0.0-base}{读者登录}
 		用于读者的登录。
 		\begin{description}
             
-		\item[访问URL] http://hostname:port/5ece85ba
+		\viaurl http://hostname:port/5ece85ba
         \footnote{单词 \textbf{reader} 的
             MD5 值是 
             $5ece7ae3f6950b744840b1d4c42e3a8e$，
@@ -258,11 +258,11 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             }
         \safe/fc8252b7\safe
         
-        \item[请求方式] \POST
+        \viareq \POST
         
         \reqargclr{用户ID} 参见 \ref{par:id}。
         \reqargclr{密码} 参见 \ref{par:key}。
-        \item[返回数据] 返回的数据将是 \bfJSON 数据。返回的内容中包括临时ID密钥，与有效时间，以分钟计。
+        \rtdata 返回的数据将是 \bfJSON 数据。返回的内容中包括临时ID密钥，与有效时间，以分钟计。
         \\可能返回的数据：
         \begin{lstlisting}[language=JavaScript]
 {
@@ -276,11 +276,11 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         
         
         
-        \apiversion{0.0.1.0-base}{读者退出}
+        \apiversion{0.1.0.0-base}{读者退出}
         \begin{description}
-            \item[访问URL] http://hostname:port/5ece85ba\safe/fc8252b7\safe
+            \viaurl http://hostname:port/5ece85ba\safe/fc8252b7\safe
             
-            \item[请求方式] \POST
+            \viareq \POST
             
             \reqargclr{用户ID}
             参见 \ref{par:logout:id}。
@@ -289,7 +289,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             参见 \ref{par:logout:tidk}。
             
             
-            \item[返回数据] 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
+            \rtdata 返回数据将是 \bfJSON 数据。其中会包含成功与否的信息。
             \\可能返回的信息：
             \begin{lstlisting}[language=JavaScript]
 {
@@ -299,7 +299,27 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             另外一个例子请参见 \ref{par:logout:example}。
         \end{description}
         
-        
+        \subsection{图书借阅API}
+        \footnote{借阅，归还，续借}
+        \apiversion{0.1.0.0-base}{图书借阅}
+        \apiversion{0.1.0.0-base}{图书归还}
+        \apiversion{0.1.0.0-base}{图书续借}
+        \apiversion{0.1.0.0-base}{超期处理}
+        \apiversion{0.1.0.0-base}{处罚处理}%缴纳罚款
+        \subsection{图书预约API}
+        \apiversion{0.1.0.0-base}{图书预约}
+        \apiversion{0.1.0.0-base}{图书预约取消}
+        \subsection{图书信息查询}
+        \apiversion{0.1.0.0-base}{图书状态查询}
+        \apiversion{0.1.0.0-base}{图书CIP信息查询}
+        \apiversion{0.1.0.0-base}{图书其他信息查询}
+        \subsection{图书检索}
+        \apiversion{0.1.0.0-base}{根据ISBN匹配}
+        \apiversion{0.1.0.0-base}{
+        \subsection{图书录入与销毁}
+        \apiversion{0.1.0.0-base}{图书录入}
+        \apiversion{0.1.0.0-base}{图书销毁}
+
         
         
         
