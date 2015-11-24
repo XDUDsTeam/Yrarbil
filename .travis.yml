@@ -2,7 +2,7 @@
 
 before_install:
   - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex"
-  - "sudo apt-get install xfonts-wgy ttf-wqy-microhei ttf-wqy-zenhei"
+  - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
 
 script:
   - mkdir __build
