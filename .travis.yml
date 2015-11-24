@@ -14,11 +14,12 @@ script:
 
 after_success: |
   if [ -n "$GITHUB_API_KEY" ]; then
-    cd "$TRAVIS_BUILD_DIR"
+    cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
-    git config user.name='travis_auto' user.email='qinka@live.com'
+    git config --global user.name "travis_auto"
+    git config --global user.email= "inka@live.com"
     cp *.pdf YrarbilRelease/
     git add .
     git commit -am"$(date)"
