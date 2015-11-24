@@ -14,19 +14,21 @@ script:
 
 after_success: |
   if [ -n "$GITHUB_API_KEY" ]; then
+    echo http;//Qinka:$GITHUB_API_KEY@github.com > ~/.git-credentials
+    git config --global user.name "travis_auto"
+    git config --global user.email "qinka@live.com"
+    git config --global credential.helper store
+    echo "config done"
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
-    git config --global user.name "travis_auto"
-    git config --global user.email "qinka@live.com"
-    echo "config done"
     cp *.pdf YrarbilRelease/
     echo "copy done"
     git add .
     git commit -am"$(date)"
     echo "commit done"
-    git push https://Qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git master
+    git push origin master
     cd "$TRAVIS_BUILD_DIR"
   fi
