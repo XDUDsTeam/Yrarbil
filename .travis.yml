@@ -1,1 +1,26 @@
-#
+# To auto build what we need.
+
+before_install:
+  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex latex-cjk-xe-cjk cjk-latex latex-cjk-chinese"
+  - "sudo apt-get install xfonts-wgy ttf-wqy-microhei ttf-wqy-zenhei"
+
+script:
+  - mkdir __build
+  - xelatex -output-directory __build Documents/APIDoc.tex
+  - xelatex -output-directory __build Documents/ArchitectureDesign.tex
+  - xelatex -output-directory __build Documents/DemandAnalysis.tex
+  - xelatex -output-directory __build Documents/TestReport.tex
+
+after_success: |
+  if [ -n "$GITHUB_API_KEY" ]; then
+    cd "$TRAVIS_BUILD_DIR"
+    ls
+    pwd
+    git clone https://github.com/XDUDsTeam/YrarbilRelease.git
+    git config user.name='travis_auto' user.email='qinka@live.com'
+    cp -r __build YrarbilRelease/Yrarbil_Documents
+    git add .
+    git commit -am"$(date)"
+    git push -f -q https://Qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git-master master &2>/dev/null
+    cd "$TRAVIS_BUILD_DIR"
+  fi
