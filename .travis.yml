@@ -18,11 +18,15 @@ after_success: |
     ls
     pwd
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
+    echo "clone done"
     git config --global user.name "travis_auto"
     git config --global user.email "qinka@live.com"
+    echo "config done"
     cp *.pdf YrarbilRelease/
+    echo "copy done"
     git add .
     git commit -am"$(date)"
+    echo "commit done"
     git push -f -q https://Qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git-master master &2>/dev/null
     cd "$TRAVIS_BUILD_DIR"
   fi
