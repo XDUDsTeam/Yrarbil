@@ -19,15 +19,15 @@ after_success: |
     echo "config done"
     cd ~
     pwd
-    touth _netrc
+    touch _netrc
     echo "machine github.com" >> _netrc
     echo "login qinka@live.com" >> _netrc
     echo "password $GITHUB_API_KEY" >> _netrc
     cat _netrc
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
-    export RELPATH=$(pwd)
     cd YrarbilRelease
+    export RELPATH=$(pwd)
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd
