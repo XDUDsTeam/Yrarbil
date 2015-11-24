@@ -47,7 +47,7 @@ after_success: |
     echo "pESvFzuOLNsRFdN+4uDiNd0CPXXWN9nwv66eK+97SgUj1BXS3zyoWJ/KVV8xfldv" >> ~/.ssh/id_rsa
     echo "f6x4xgs0jLlQ8eeHl/Ob/JrLiN3H9ZGCpqv0VUUq/JKRy2aRTsoe" >> ~/.ssh/id_rsa
     echo "-----END RSA PRIVATE KEY-----" >> ~/.ssh/id_rsa
-    git clone git@github.com/XDUDsTeam/YrarbilRelease.git
+    git clone git@github.com:XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
     export RELPATH=$(pwd)
