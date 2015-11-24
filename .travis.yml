@@ -19,6 +19,11 @@ after_success: |
     echo "config done"
     cd ~
     pwd
+    touth _netrc
+    echo "machine github.com" >> _netrc
+    echo "login qinka@live.com" >> _netrc
+    echo "password $GITHUB_API_KEY" >> _netrc
+    cat _netrc
     git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     export RELPATH=$(pwd)
@@ -32,7 +37,7 @@ after_success: |
     git add .
     git commit -am"$(date)"
     echo "commit done"
-    git push origin master < git_push.in
+    git push origin master
     cd ~
     sudo rm -rf $RELPATH
     cd "$TRAVIS_BUILD_DIR"
