@@ -353,16 +353,22 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         	423472651c
         	\footnote{单词 \textbf{book}的
         		MD5 值是 $4f98663772651c870e911982e991d0d9$，
-        		SHA256 值是 $3c4dbff9eeda9410a0b9eb423472981db8997d666388b4cd2424700c3974d64b$。
+        		SHA256 值是
+                $3c4dbff9eeda9410a0b9eb423472981db8997d666388b4cd2424700c3974d64b$
+                。
         		}
 	        \safe/9c4f7bfef
 	        \footnote{
 	        	单词 \textbf{search} 的
 	        	MD5 值是 $9c4fc45b8e6ad4bf08f959548f52099e$，
-	        	SHA256 值是$f1f3528bad895d7e9db4544081b531c2126781843aebafa6cbea7c2f9358cf85$。
+	        	SHA256 值是
+                $f1f3528bad895d7e9db4544081b531c2126781843aebafa6cbea7c2f9358cf85$
+                。
 	        	单词 \textbf{ISBN} 的
 	        	MD5 值是 $f329188d04f7bd852894eed846386423$，
-	        	SHA256 值是 $3cb720e9f89bfef38a513b1ee0c47cc0ae75c3353612c3466761df19dc945f29$。
+	        	SHA256 值是
+                $3cb720e9f89bfef38a513b1ee0c47cc0ae75c3353612c3466761df19dc945f29$
+                 。
 	        	}
 	        \safe
 
@@ -380,37 +386,37 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        返回的数据格式类型是 JSON 数据还是 HTML 文件。
 
 	        \item[返回数据] 请求返回的可能是数据，也可能是 html。
-	        \\ 可能返回的数据之一：
-	        \begin{lstlisting}[language=JSON]
+	        可能返回的数据之一：
+\begin{lstlisting}[language=JavaScript]
 {
 	"name":"the name of book",
-	"author:"who write it!",
-	"publish_location":"Xi'an,China",
-	"press_house":"our_press",
-	"publish_date":"1970-01-01",
+	"author":"who write it!",
+	"publishLocation":"Xi`an,China",
+	"pressHouse":"ourPress",
+	"publishDate":"1970-01-01",
 	"ISBN":"ISBN978-7-302-22446-4",
 	"location":"TP312"
 }
-	        \end{lstlisting}
-	        \\ 或者会拿到 HTMl 代码:
-	        \begin{lstlisting}[language=HTML]
+\end{lstlisting}
+	       或者会拿到 HTMl 代码:
+\begin{lstlisting}[language=HTML]
 <HTML>
 	<body>
 	<p> the name of book</p>
 	<p> 'who write it' write this book </p>
-	<p> 'our_press' publish this book in Xi'an , China </p>
+	<p> 'our press' publish this book in Xi`an , China </p>
 	<p> At Jan. 1st, 1970. </p>
 	<p> ISBN is 978-7-302-22446-4</p>
 	<p> You can find these books at TP312.</p>
 	</body>
 </HTML>
-	        \end{lstlisting}
+\end{lstlisting}
         \end{description}
 
 
 
 
-        \apiversion{0.0.1.0-base}{}
+        \apiversion{0.0.1.0-base}{x}
 
 
 
