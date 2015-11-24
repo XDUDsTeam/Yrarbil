@@ -1,7 +1,7 @@
 # To auto build what we need.
 
 before_install:
-  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex texlive-fonts-recommended texlive-latex-extra  texlive-latex-recommended"
+  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex texlive-latex texlive-fonts-recommended texlive-latex-extra  texlive-latex-recommended kpathsea"
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
 
 
