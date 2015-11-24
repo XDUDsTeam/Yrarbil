@@ -3,8 +3,6 @@
 before_install:
   - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-xetex"
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
-  - "cd ~/texmf/tex/latex"
-  - "svn checkout http://ctex-kit.googlecode.com/svn/trunk/ctex"
 
 
 script:
