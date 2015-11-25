@@ -23,7 +23,7 @@ after_success: |
     echo "    login \'qinka@live.com\'" >> _netrc
     echo "    password $GITHUB_API_KEY" >> _netrc
     cat _netrc
-    git clone git@github.com:XDUDsTeam/YrarbilRelease.git
+    git clone https://github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
     export RELPATH=$(pwd)
