@@ -22,18 +22,12 @@ after_success: |
     git config --global user.email "qinka@live.com"
     echo "config done"
     cd ~
-    #touch _netrc
-    #echo "machine github.com" >> _netrc
-    #echo "    login qinka" >> _netrc
-    #echo "    password $GITHUB_API_KEY" >> _netrc
-    #cat _netrc
     git clone https://qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
     ls
     pwd
     export RELPATH=$(pwd)
-    sudo rm -f *.pdf
     ls
     pwd
     cd "$TRAVIS_BUILD_DIR"/Documents
