@@ -11,6 +11,10 @@ script:
   - xelatex ArchitectureDesign.tex
   - xelatex DemandAnalysis.tex
   - xelatex TestReport.tex
+  - xelatex APIDoc.tex
+  - xelatex ArchitectureDesign.tex
+  - xelatex DemandAnalysis.tex
+  - xelatex TestReport.tex
 
 after_success: |
   if [ -n "$GITHUB_API_KEY" ]; then
@@ -26,7 +30,12 @@ after_success: |
     git clone https://qinka:$GITHUB_API_KEY@github.com/XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
+    ls
+    pwd
     export RELPATH=$(pwd)
+    sudo rm -f *.pdf
+    ls
+    pwd
     cd "$TRAVIS_BUILD_DIR"/Documents
     ls
     pwd

@@ -349,7 +349,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         通过 ISBN查询，返回图书的信息。
         \begin{description}
 
-        	\item[访问 URL] http://hostname:port/
+        	\viaurl http://hostname:port/
         	423472651c
         	\footnote{单词 \textbf{book}的
         		MD5 值是 $4f98663772651c870e911982e991d0d9$，
@@ -373,7 +373,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        \safe
 
 
-	        \item[请求方式] \GET
+	        \viareq \GET
 
 
 	        \reqargclr{ISBN码}
@@ -385,7 +385,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        $$type=[json|html]$$
 	        返回的数据格式类型是 JSON 数据还是 HTML 文件。
 
-	        \item[返回数据] 请求返回的可能是数据，也可能是 html。
+	        \rtdata 请求返回的可能是数据，也可能是 html。
 	        可能返回的数据之一：
 \begin{lstlisting}[language=JavaScript]
 {
