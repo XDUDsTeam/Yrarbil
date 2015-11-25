@@ -18,10 +18,11 @@ after_success: |
     git config --global user.email "qinka@live.com"
     echo "config done"
     cd ~
-    eval "$(ssh-agent -s)"
-    cat $DEPLOY_KEY > .travis/deploy_key.pem
-    chmod 600 .travis/deploy_key.pem
-    ssh-add .travis/deploy_key.pem
+    touch _netrc
+    echo "machine github.com" >> _netrc
+    echo "    login \'qinka@live.com\'" >> _netrc
+    echo "    password $GITHUB_API_KEY" >> _netrc
+    cat _netrc
     git clone git@github.com:XDUDsTeam/YrarbilRelease.git
     echo "clone done"
     cd YrarbilRelease
