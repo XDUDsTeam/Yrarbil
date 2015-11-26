@@ -5,8 +5,12 @@ before_install:
   - "sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei"
 
 
-script:
+script: # 编译三遍为了保证 目录 引索 正常
   - cd Documents
+  - xelatex APIDoc.tex
+  - xelatex ArchitectureDesign.tex
+  - xelatex DemandAnalysis.tex
+  - xelatex TestReport.tex
   - xelatex APIDoc.tex
   - xelatex ArchitectureDesign.tex
   - xelatex DemandAnalysis.tex
