@@ -47,7 +47,7 @@
 \def \itemPOST{\item[访问方式] \POST}
 \def \itemGET{\item[访问方式] \GET}
 \def\bfJSON{\textbf{JSON}}
-\def\viaurl#1{\item[访问URL] #1}
+\def\viaurl{\item[访问URL]}
 \def\viareq#1{\item[访问方式] #1}
 \def\rtdata{\item[返回数据]}
 
@@ -124,6 +124,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \section{后端API}
     后端 API 主要以 HTTP 请求为主。
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     \subsection{未分类API}
 
@@ -147,40 +148,35 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 		如果是 $true$ 那么则不返回 JSON 数据，默认是 $false$。
 	\end{description}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-
-
-
-
-    \subsection{用户认证API}
-
-
-
-
-
-
-
-
+    \subsection{用户认证API}%   Authentication 
 
 
 
     \apiversion{0.1.0.0-base}{管理员登陆}
     \begin{description}
 
-        \viaurl http://hostname:port/b8ab91a6
+        \viaurl http://hostname:port/1daa62b\safe
         \footnote{
-            \textbf{login} 英文单词 md5值是$b8abe8f5a587a4c69685b17a954f8a3f$，
+            英文单词 \textbf{authentication} 的
+            MD5 值是
+            $1daa54e7c5a9caaa0c5043eadea9d824$,
+            SHA256 值是
+            $557212052a5022b1055b5c259eadd48a13c79a360215300c5753d17870d4a62b$。
+        }
+        /b8ab91a6
+        \footnote{
+            英文单词\textbf{login}  MD5 值是$b8abe8f5a587a4c69685b17a954f8a3f$，
             SHA256值是
             $6c1420b8f3be7a61357ecc82a1c391dffe438930c103466b1660625e42ac91a6$。
         }
         \safe
         \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}/fc8252b7
         \footnote{
-            \textbf{admin} 英文单词的
-            md5值是 $456b7016a916a4b178dd72b947c152b7 $,
+            英文单词的\textbf{admin} 
+            MD5值是 $456b7016a916a4b178dd72b947c152b7 $,
             SHA256 值是
             $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
         }
@@ -220,9 +216,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
     \apiversion{0.1.0.0-base}{管理员退出}
     \begin{description}
-        \viaurl http://hostname:port/a050ba73
+        \viaurl http://hostname:port/1daa62b\safe/a050ba73
         \footnote{
-            单词 \textbf{logout} 的
+            英文单词 \textbf{logout} 的
             MD5值是$a05080965b04f4d190bb94b552bea56c $,
             SHA256 值是
             $60b2a0ba73317dce9502417ce5bdb75d0a16067848647b9a5f5f4e040397b20f$。
@@ -261,8 +257,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 		用于读者的登录。
 		\begin{description}
 
-		\viaurl http://hostname:port/5ece85ba
-        \footnote{单词 \textbf{reader} 的
+		\viaurl http://hostname:port/1daa62b\safe/5ece85ba
+        \footnote{
+            英文单词 \textbf{reader} 的
             MD5 值是
             $5ece7ae3f6950b744840b1d4c42e3a8e$，
             SHA256 值是
@@ -290,7 +287,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
         \apiversion{0.1.0.0-base}{读者退出}
         \begin{description}
-            \viaurl http://hostname:port/5ece85ba\safe/fc8252b7\safe
+            \viaurl http://hostname:port/1daa62b\safe/5ece85ba\safe/fc8252b7\safe
 
             \viareq \POST
 
@@ -315,6 +312,24 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \subsection{图书借阅API}
         \footnote{借阅，归还，续借}
         \apiversion{0.1.0.0-base}{图书借阅}
+        \begin{description}
+            \viaurl http://hostname:port/a3cab3a
+                \footnote{
+                    英文单词 \textbf{management} 的
+                    MD5值是$759d05d9478213e50a48a3ca7545fdcd$,
+                    SHA256 值是
+                    $9b47b1d1f65f93872d2b1cc222ab3a5b842c9213c0601b6fab6bf0b274b6c823$。
+                }
+                \safe/5527da67
+                \footnote{
+                    英文单词 \textbf{lending} 的
+                    MD5 值是
+                    $07c52effd9cc6b16d231c7da672826a4$，
+                    SHA256 值是
+                    $e0bdc575f0fa8f791e99d552763f6a57353b940be7375a2bdba2e034387daa4e$。
+                }
+                \safe
+        \end{description}
         \apiversion{0.1.0.0-base}{图书归还}
         \apiversion{0.1.0.0-base}{图书续借}
         \apiversion{0.1.0.0-base}{超期处理}
