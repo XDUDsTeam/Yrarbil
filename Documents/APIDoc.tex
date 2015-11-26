@@ -325,6 +325,72 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \subsection{图书信息查询}
         \apiversion{0.1.0.0-base}{图书状态查询}
         \apiversion{0.1.0.0-base}{图书CIP信息查询}
+                通过 ISBN查询，返回图书的信息。
+                \begin{description}
+                    
+                    \viaurl http://hostname:port/
+                    423472651c
+                    \footnote{单词 \textbf{book}的
+                        MD5 值是 $4f98663772651c870e911982e991d0d9$，
+                        SHA256 值是
+                        $3c4dbff9eeda9410a0b9eb423472981db8997d666388b4cd2424700c3974d64b$
+                        。
+                    }
+                    \safe/9c4f7bfef
+                    \footnote{
+                        单词 \textbf{search} 的
+                        MD5 值是 $9c4fc45b8e6ad4bf08f959548f52099e$，
+                        SHA256 值是
+                        $f1f3528bad895d7e9db4544081b531c2126781843aebafa6cbea7c2f9358cf85$
+                        。
+                        单词 \textbf{ISBN} 的
+                        MD5 值是 $f329188d04f7bd852894eed846386423$，
+                        SHA256 值是
+                        $3cb720e9f89bfef38a513b1ee0c47cc0ae75c3353612c3466761df19dc945f29$
+                        。
+                    }
+                    \safe
+                    
+                    
+                    \viareq \GET
+                    
+                    
+                    \reqargclr{ISBN码}
+                    $$isbn=[ISBN]$$
+                    其中的 ISBN 是书的 ISBN 码。
+                    
+                    
+                    \reqargclr{返回数据形式}
+                    $$type=[json|html]$$
+                    返回的数据格式类型是 JSON 数据还是 HTML 文件。
+                    
+                    \rtdata 请求返回的可能是数据，也可能是 html。
+                    可能返回的数据之一：
+                    \begin{lstlisting}[language=JavaScript]
+{
+    "name":"the name of book",
+    "author":"who write it!",
+    "publishLocation":"Xi`an,China",
+    "pressHouse":"ourPress",
+    "publishDate":"1970-01-01",
+    "ISBN":"ISBN978-7-302-22446-4",
+    "location":"TP312"
+}
+                    \end{lstlisting}
+                    或者会拿到 HTMl 代码:
+                    \begin{lstlisting}[language=HTML]
+<HTML>
+    <body>
+        <p> the name of book</p>
+        <p> 'who write it' write this book </p>
+        <p> 'our press' publish this book in Xi`an , China </p>
+        <p> At Jan. 1st, 1970. </p>
+        <p> ISBN is 978-7-302-22446-4</p>
+        <p> You can find these books at TP312.</p>
+    </body>
+</HTML>
+                    \end{lstlisting}
+                \end{description}
         \apiversion{0.1.0.0-base}{图书其他信息查询}
         \subsection{图书检索}
         \apiversion{0.1.0.0-base}{根据ISBN匹配}
@@ -333,93 +399,13 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \subsection{图书录入与销毁}
         \apiversion{0.1.0.0-base}{图书录入}
         \apiversion{0.1.0.0-base}{图书销毁}
-        \subsection{数据分析接口}
+
+        \subsection{数据分析接口}
         \apiversion{0.1.0.0-da}{获得所有图书的ISBN码}
-        \apiversion{0.1.0.0-da}
+        \apiversion{0.1.0.0-da}{通过ISBN码查找对应的图书的条码}
+        \apiversion{0.1.0.0-da}{通过ISBN码查询某一个图书的借阅次数}
 
 
-
-
-        \subsection{图书的生命周期部分}
-        图书的生命周期包括被查询，被预约，借阅，续借，归还，和采购与销毁。
-
-
-
-
-
-
-        \apiversion{0.0.1.0-base}{查询图书的 CIP 数据}
-        通过 ISBN查询，返回图书的信息。
-        \begin{description}
-
-        	\viaurl http://hostname:port/
-        	423472651c
-        	\footnote{单词 \textbf{book}的
-        		MD5 值是 $4f98663772651c870e911982e991d0d9$，
-        		SHA256 值是
-                $3c4dbff9eeda9410a0b9eb423472981db8997d666388b4cd2424700c3974d64b$
-                。
-        		}
-	        \safe/9c4f7bfef
-	        \footnote{
-	        	单词 \textbf{search} 的
-	        	MD5 值是 $9c4fc45b8e6ad4bf08f959548f52099e$，
-	        	SHA256 值是
-                $f1f3528bad895d7e9db4544081b531c2126781843aebafa6cbea7c2f9358cf85$
-                。
-	        	单词 \textbf{ISBN} 的
-	        	MD5 值是 $f329188d04f7bd852894eed846386423$，
-	        	SHA256 值是
-                $3cb720e9f89bfef38a513b1ee0c47cc0ae75c3353612c3466761df19dc945f29$
-                 。
-	        	}
-	        \safe
-
-
-	        \viareq \GET
-
-
-	        \reqargclr{ISBN码}
-	        $$isbn=[ISBN]$$
-	        其中的 ISBN 是书的 ISBN 码。
-
-
-	        \reqargclr{返回数据形式}
-	        $$type=[json|html]$$
-	        返回的数据格式类型是 JSON 数据还是 HTML 文件。
-
-	        \rtdata 请求返回的可能是数据，也可能是 html。
-	        可能返回的数据之一：
-\begin{lstlisting}[language=JavaScript]
-{
-	"name":"the name of book",
-	"author":"who write it!",
-	"publishLocation":"Xi`an,China",
-	"pressHouse":"ourPress",
-	"publishDate":"1970-01-01",
-	"ISBN":"ISBN978-7-302-22446-4",
-	"location":"TP312"
-}
-\end{lstlisting}
-	       或者会拿到 HTMl 代码:
-\begin{lstlisting}[language=HTML]
-<HTML>
-	<body>
-	<p> the name of book</p>
-	<p> 'who write it' write this book </p>
-	<p> 'our press' publish this book in Xi`an , China </p>
-	<p> At Jan. 1st, 1970. </p>
-	<p> ISBN is 978-7-302-22446-4</p>
-	<p> You can find these books at TP312.</p>
-	</body>
-</HTML>
-\end{lstlisting}
-        \end{description}
-
-
-
-
-        \apiversion{0.0.1.0-base}{x}
 
 
 
@@ -429,8 +415,18 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \newpage
     \begin{appendices}
     \section{参考文档}
+    \begin{enumerate}
+        \item Yrarbil 的需求分析报告
+        \item Yrarbil 的架构分析报告
+        \item Yrarbil 的测试报告
+        \item Yrarbil 的后端文档
+    \end{enumerate}
     \section{文档网址}
-    todo
+         全部的文档可以访问 \url{https://github.com/XDUDsTeam/YrarbilRelease} 仓库。
+      目前的所有的文档，均通过 Travis-ci
+      \footnote{Travis CI是在软件开发领域中的一个在线的，分布式的持续集成服务。}
+      及时编译，再次并上传到GitHub上。 
+      
     \end{appendices}
 
 \end{document}
