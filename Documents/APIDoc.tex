@@ -311,6 +311,10 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
         \subsection{图书借阅API}
         \footnote{借阅，归还，续借}
+        \subsubsection*{注意}
+        这一部分需要管理员的临时ID 密钥，其给定的参数是
+        $$tid=[temp id key]$$。
+        其中 temp id key 是临时秘钥，其中要求该部分中的每个 POST GET 访问 提供。
         \apiversion{0.1.0.0-base}{图书借阅}
         \begin{description}
             \viaurl http://hostname:port/a3cab3a
@@ -329,16 +333,155 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                     $e0bdc575f0fa8f791e99d552763f6a57353b940be7375a2bdba2e034387daa4e$。
                 }
                 \safe
+                
+                \viareq{\POST}
+                
+                \reqargclr{读者条码}
+                $$rid=[reader's id]$$
+                给定读者的条码。
+                \reqargclr{图书条码}
+                $$bid=[book‘s id]$$
+                给定图书的条码。
+                \rtdata 
+                返回的数据是 \bfJSON 数据。会显示借阅成功与否\footnote{如果失败，将会传入失败的原因。超期可能使得图书无法借阅。}，何时到期。
+                \\  可能返回的数据
+                \begin{lstlisting}[language=JavaScript]
+{
+	"status":"success",
+	"date":"2010-2-29"
+}
+                \end{lstlisting}
         \end{description}
         \apiversion{0.1.0.0-base}{图书归还}
+        \begin{description}
+	        \viaurl  http://hostname:port/a3cab3a\safe/3689884
+	        \footnote{
+	        	英文单词 \textbf{return}的
+	        	MD5 值是 $64672a10de469fbe6988486f9582d37c$,
+	        	SHA256值是$9e34e5324d74f5d7636894144e2b8804df7ae09ca2268fc207a328e4811b8200$。
+	        }\safe
+	        \viareq{\POST}
+	        \reqargclr{图书条码}
+	        $$bid=[book's id]$$
+	        给定要归还的图书的目录。
+	        \rtdata 返回数据为\bfJSON 。或者还书成功，或者返回失败的信息及原因。如果图书超期，则需要先处理超期
+	        \footnote{即缴纳罚款，以“购买”借阅时长，使得可以还款，此处需要先除法超期处理，然后再缴纳罚款，最后还书。}。
+	        \\ 可能返回的数据
+	        \begin{lstlisting}[language=JavaScript]
+{
+	"status":"failed",
+	"reason":"overdue"
+}
+	        \end{lstlisting}
+	        \end{description}
         \apiversion{0.1.0.0-base}{图书续借}
+        \begin{description}
+	        \viaurl http://hostname:port/a3cab3a\safe/4a2a356d
+		     \footnote{
+		     	英文单词 \textbf{renew} 的
+		     	MD5 值是$faa1a11b00a356df6bf38236a8bf8437$,
+		     	SHA256 值是 $4a2ae1cd00fe13c16af14299ef08f8aedd0722832723a1e1f683eb1308950b0d$。
+		     }\safe
+		     \viareq{\POST}
+		     \reqargclr{图书条码}
+		     $$bid=[book's id]$$
+		     给定要归还的图书的条码。
+		     \rtdata 返回的数据为 \bfJSON 。或者成功，并返回借阅期限。或者返回的是原因，如果为超期，则先需要处理超期问题。
+		     \\ 可能返回的数据：
+		     \begin{lstlisting}[]
+		     \end{lstlisting}
+		      \end{description}
         \apiversion{0.1.0.0-base}{超期处理}
+        超期处理部分暂时先不处理。
         \apiversion{0.1.0.0-base}{处罚处理}%缴纳罚款
+        \begin{description}
+	        \viaurl http://hostname:port/a3cab3a\safe/c91ed8fd
+	        \footnote{英文单词 \textbf{pay} 的
+	        	MD5 值是 $c91e7f018a4ea68d6864a7d21f663c9a$，
+	        	SHA256 值是 $4f675fed8fd4763a87b0981acb0cf446b1a438233aef624f563844b97d5c7bf5$。
+	        	}
+	        \safe
+	        \viareq{\POST}
+	        \reqargclr{读者条码}
+	        $$rid=[reader's id]$$
+	        传入的是读者条码。
+	        \reqargclr{金额}
+	        $$cash=[reader's cash]$$
+	        传入的是读者的缴纳的罚款的金额。
+	        \reqargclr{事由}
+	        $$resaon=[text]$$
+	        传入的是为什么缴纳罚款。
+	        \rtdata 返回值是 \bfJSON 数据，其中包含是否成功，如果不成功会给出理由，反之则会给出处理的大流水号。
+	        \\ 可呢的例子：
+	        \begin{lstlisting}[language=JavaScript]
+{
+	"status":"success",
+	"bigSerialNumber":"4654231@PAY@2015-10-24"
+}
+	        \end{lstlisting}
         \subsection{图书预约API}
+        这一部分需要给定读者的临时 ID 秘钥，格式是
+        $$tide=[the temp id of reader]$$
+        其中读者秘钥 需要提供给 所有 POST GET 方法。
         \apiversion{0.1.0.0-base}{图书预约}
+        \begin{description}
+	         \viaurl http://hostname:port/1d224726
+	         \footnote{
+	         	英文单词 \textbf{appointment} 的
+	         	MD5 值是 $1d226c3a8e1e3eb2cdf2d4fba102f020$，
+	         	SHA256值是 $4b247264036a8c154cd24bd40987cae6bdf7d3d9793b2d81dbe39571cc64a10a$。
+	         }\safe/on
+		     \viareq{\POST}
+		     \reqargclr{图书条码}
+		     \rtdata 返回的数据是 \bfJSON ，将返回是否预约成功，以及如果预约不成功将返回预约失败的原因。
+		     \\ 肯能返回的内容：
+			 \begin{lstlisting}[language=JavaScript]
+{
+	"status":"failed",
+	"reason":"Is not in library"
+}
+			 \end{lstlisting}
+	       \end{description}
         \apiversion{0.1.0.0-base}{图书预约取消}
+        \begin{description}
+	        \viaurl http://hostname:port/1d224726\safe/off
+	        \viareq{\POST}
+	        \reqargclr{图书条码}
+	        \rtdata 返回的数据是 \bfJSON ，其中包括 是否成功，以及不成功的原因。
+	         \end{description}
+        \subsection{常量查询}
+        \apiversion{0.1.0.0-base}{公开常量查询}
+        \begin{description}
+	        \virurl http://hostname:port/varcat
+	        \viareq{|POST}
+	        \reqargclr{查询的变量名}
+	        $$varname=[text]$$
+	        \rtdata 返回的数据是 \bfJSON ,内容包括所查询的内容与结果。
+	        \\ 可能的返回:
+			\begin{lstlisting}[language=JavaScript]
+{
+	"requested":"undefined",
+	"retrun":"It just undefined :)"
+}
+			\end{lstlisting}
+			 \end{description}
         \subsection{图书信息查询}
         \apiversion{0.1.0.0-base}{图书状态查询}
+        \begin{description}
+	        \viaurl http://hostname:port/423472651c\safe/ons
+	        \viareq{\GET}
+	        \reqargclr{图书条码}
+	        $$bid=[book's id]$$
+	        或
+	        $$isbn=[book's isbn]$$
+	        给定图书的条码或 ISBN 码。
+	        \rtdata 返回的数 JSON 数据，其中
+	        \begin{lstlisting}[language=JavaScript]
+{
+	"state":"on"
+}
+	        \end{lstlisting}
+	         \end{description}
         \apiversion{0.1.0.0-base}{图书CIP信息查询}
                 通过 ISBN查询，返回图书的信息。
                 \begin{description}
@@ -420,10 +563,10 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \apiversion{0.1.0.0-da}{通过ISBN码查找对应的图书的条码}
         \apiversion{0.1.0.0-da}{通过ISBN码查询某一个图书的借阅次数}
 
+		\section{错误代码}
+% 借阅期限，续借次数，超期罚款
 
-
-
-
+		\section{可查询的变量名称}
 
 
 
@@ -440,8 +583,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
          全部的文档可以访问 \url{https://github.com/XDUDsTeam/YrarbilRelease} 仓库。
       目前的所有的文档，均通过 Travis-ci
       \footnote{Travis CI是在软件开发领域中的一个在线的，分布式的持续集成服务。}
-      及时编译，再次并上传到GitHub上。 
+      及时编译，再次并上传到GitHub上。
       
     \end{appendices}
 
 \end{document}
+
