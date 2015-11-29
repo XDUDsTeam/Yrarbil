@@ -180,7 +180,7 @@ CREATE TABLE table_punish
 -- 创建 读者数据
 CREATE TABLE table_reader
 (
-	barcode					BIGINT NOT NULL PRIMARY KEY,
+	barcode					TEXT NOT NULL PRIMARY KEY, --已修改
 	reader_name				TEXT NOT NULL,
 	idcard_type				CHAR(40),
 	idcard_id				TEXT,
@@ -206,10 +206,19 @@ CREATE TABLE table_opt
 -- 创建 系统管理员数据
 CREATE TABLE table_adminer
 (
-	admin_id			INT NOT NULL,
+	admin_id			INT NOT NULL PRIMARY KEY,
 	admin_passwd	TEXT NOT NULL DEFAULT '222222'
 );
 
+
+--------------------------------------
+-- 临时 ID 秘钥 表
+CREATE TABLE table_tmpidkey
+(
+	tmpid TEXT NOT NULL PRIMARY KEY,
+	timeend TIMESTAMP WITH TIME ZONE NOT NULL,
+	id TEXT NOT NULL
+);
 
 \echo '*\nYrarbil 数据库初始化完毕\n*\n'
 
