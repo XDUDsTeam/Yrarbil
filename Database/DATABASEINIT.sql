@@ -91,7 +91,7 @@ VALUES(
 INSERT INTO table_version
 VALUES(
 	-- 见 API
-	0,0,1,0,
+	0,1,0,0,
 	'base'
 );
 
@@ -150,7 +150,7 @@ CREATE TABLE table_bookopt_out
 CREATE TABLE table_bookopt_main
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
-	reader_barcode				BIGINT NOT NULL,
+	reader_barcode				TEXT NOT NULL,
 	book_barcode				BIGINT NOT NULL,
 	time_lmt					INT[] NOT NULL,
 	return_date					DATE
@@ -161,7 +161,7 @@ CREATE TABLE table_bookopt_main
 CREATE TABLE table_bookopt_appointment
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
-	reader_barcode				BIGINT NOT NULL,
+	reader_barcode				TEXT NOT NULL,
 	book_barcode				BIGINT NOT NULL,
 	appointment_date			DATE NOT NULL
 );
@@ -171,7 +171,7 @@ CREATE TABLE table_bookopt_appointment
 CREATE TABLE table_punish
 (
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
-	reader_barcode				BIGINT NOT NULL,
+	reader_barcode				TEXT NOT NULL,
 	cash						MONEY NOT NULL,
 	reason						TEXT NOT NULL
 );
@@ -195,10 +195,10 @@ CREATE TABLE table_reader
 -- 创建 操作数据记录
 CREATE TABLE table_opt
 (
-	small_serial_number			INT NOT NULL,
-	opt_date					DATE NOT NULL,
-	opt_usr_type				SMALLINT NOT NULL,
-	opt_usr_id					BIGINT	NOT NULL
+	small_serial_number			INT 		NOT NULL,
+	opt_date					DATE 		NOT NULL,
+	opt_usr_type				SMALLINT	NOT NULL,
+	opt_usr_id					TEXT		NOT NULL
 );
 
 
