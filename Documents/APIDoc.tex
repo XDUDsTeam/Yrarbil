@@ -42,14 +42,14 @@
 %% API 常用
 %%%%
 \def\safe{/[\textit{safe}]}
-\def\GET{\textbf{GET}}
-\def\POST{\textbf{POST}}
+\def\GET{\colorbox[rgb]{0.77,0.53,0.97}{\textbf{GET}}}
+\def\POST{\colorbox[rgb]{0.77,0.53,0.97}{\textbf{POST}}}
 \def \itemPOST{\item[访问方式] \POST}
 \def \itemGET{\item[访问方式] \GET}
 \def\bfJSON{\textbf{JSON}}
-\def\viaurl{\item[访问URL]}
-\def\viareq#1{\item[访问方式] #1}
-\def\rtdata{\item[返回数据]}
+\def\viaurl{\item[{\colorbox[rgb]{0.47,0.88,0.89}{访问URL}}]}
+\def\viareq#1{\item[{\colorbox[rgb]{0.57,0.88,0.99}{访问方式}}] #1}
+\def\rtdata{\item[{\colorbox[rgb]{0.70,0.9,0.59}{返回数据}}]}
 
 
 
@@ -130,22 +130,23 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
     \apiversion{0.1.0.0-base}{访问“主页”}
     访问主页
-    \footnote{http://hostname:port/}
+    \footnote{ http://hostname:port/ hostname 是指 当前后端运行的主机的ip，或者其他URL 等可以访问的域名，ip等有效内容，port是端口，默认是3000}
     可以获取一些信息。
     \begin{description}
         \viaurl http://hostname:port/
-        \viareq \GET
+        \viareq{\GET}
         \rtdata 标准 HTML 代码。
     \end{description}
 
     \apiversion{0.0.1.0-base}{获得 api 版本}
     获得当前 api 版本支持。
     \begin{description}
-		\item[访问 URL] http://hostname:port/version
-		\itemGET
+		\viaurl http://hostname:port/version
+		\viareq{\GET}
 		\reqargclr{NoJSON 选项}
 		$$nojson=[true|false]$$
 		如果是 $true$ 那么则不返回 JSON 数据，默认是 $false$。
+        \rtdata 返回数据时 \bfJSON 数据，其中 将会返回数据库与后端的版本。
 	\end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,7 +159,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \apiversion{0.1.0.0-base}{管理员登陆}
     \begin{description}
 
-        \viaurl http://hostname:port/1daa62b\safe
+        \viaurl http://hostname:port/1daa62b
         \footnote{
             英文单词 \textbf{authentication} 的
             MD5 值是
@@ -166,7 +167,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             SHA256 值是
             $557212052a5022b1055b5c259eadd48a13c79a360215300c5753d17870d4a62b$。
         }
-        /b8ab91a6
+        \safe/b8ab91a6
         \footnote{
             英文单词\textbf{login}  MD5 值是$b8abe8f5a587a4c69685b17a954f8a3f$，
             SHA256值是
@@ -223,7 +224,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             SHA256 值是
             $60b2a0ba73317dce9502417ce5bdb75d0a16067848647b9a5f5f4e040397b20f$。
         }
-        \safe/fc8252b7\safe]
+        \safe/fc8252b7\safe
 
         \viareq \POST
 
@@ -486,8 +487,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                 通过 ISBN查询，返回图书的信息。
                 \begin{description}
                     
-                    \viaurl http://hostname:port/
-                    423472651c
+                    \viaurl http://hostname:port/423472651c
                     \footnote{单词 \textbf{book}的
                         MD5 值是 $4f98663772651c870e911982e991d0d9$，
                         SHA256 值是
