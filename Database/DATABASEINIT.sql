@@ -109,9 +109,7 @@ CREATE TABLE table_bookinfo
 	publish_house   CHAR(64),
 	publish_date	DATE,
 	library_local	TEXT,
-	library_index	CHAR(40),
-	bought_price	INT,
-	bought_date 	DATE
+	library_index	CHAR(40)
 );
 
 --------------------------------------
@@ -122,7 +120,9 @@ CREATE TABLE table_bookitem
 	isbn			BIGINT NOT NULL,
 	on_shelf		BOOLEAN NOT NULL,
 	is_there		BOOLEAN NOT NULL,
-	latest_opt_id	CHAR(64)
+	latest_opt_id	CHAR(64),
+	bought_price	INT,
+	bought_date 	DATE
 );
 --------------------------------------
 -- 创建 图书操作记录 入库（购买）

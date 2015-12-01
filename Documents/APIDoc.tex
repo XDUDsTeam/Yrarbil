@@ -41,7 +41,7 @@
 %%%%
 %% API 常用
 %%%%
-\def\safe{[\textit{safe}]}
+\def\safe{/[\textit{safe}]}
 \def\GET{\textbf{GET}}
 \def\POST{\textbf{POST}}
 \def \itemPOST{\item[访问方式] \POST}
@@ -550,12 +550,60 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                     \end{lstlisting}
                 \end{description}
         \apiversion{0.1.0.0-base}{图书其他信息查询}
+        暂时先不做其他的数据检索。
         \subsection{图书检索}
         \apiversion{0.1.0.0-base}{根据ISBN匹配}
         \apiversion{0.1.0.0-base}{根据条件检索}
         \apiversion{0.1.0.0-plus}{获取图书的BibTeX引用数据}
         \subsection{图书录入与销毁}
         \apiversion{0.1.0.0-base}{图书录入}
+        实体的单本图书的录入。
+        \begin{description}
+            \viaurl  http://hostname:port/c7b70ceb
+            \footnote{
+                英文单词\textbf{bookchange}的
+                MD5 值是 $c7b74167f5663260ce68b76a8636407a $，
+                SHA256 值是 $0cebc922561ea3f51cff44858e854ff1aee6454d245e85a23bb42e3e9b5cd365$。
+            }
+            \safe
+            /8769ab8
+            \footnote{
+                英文单词 \textbf{add} 的
+                MD5 值是 $69a904ac9adfbefaa69a720e4c13780a $，
+                SHA256 值是 $87623ceab830648b4f91539f54b7d3d6ef9bbdb04a1442dcfbf90103dd60e73e$。
+            }\safe
+            
+            \viareq{\POST}
+            
+            \reqargclr{ISBN} 输入ISBN 数据。
+            \reqargclr{条码} 获得条码。
+            \rtdata 返回的数据是 \bfJSON 数据，将返回是否成功，如果失败，将返回原因。
+            \\ 可能的返回数据:
+            \begin{lstlisting}[language=JavaScript]
+{
+    "status":"success"
+}
+            \end{lstlisting}
+        \end{description}
+        \apiversion{0.1.0.0-base}{图书录入}
+        图书录入，并非实体。
+        \begin{description}
+        \viaurl http://hostname:port/c7b70ceb\safe/4d632ab9
+        \footnote{
+            英文单词 \textbf{delete} 的
+            MD5 值是 $4d637d37b5ef46274393899205774420$，
+            SHA256 值是 $2ab99e684919afa1245556d366a2018d1dd0bd63b1b66fb92cde34ec5c4d60c6$。
+        }\safe
+        \viareq{\POST}
+        \reqargclr{ISBN}
+        \reqargclr{书名}
+        \reqargclr{作者}
+        \reqargclr{出版地}
+        \reqargclr{出版社}
+        \reqargclr{出版日期}
+        \reqargclr{图书分类} 获得图书的分类信息
+        
+        \end{description}
         \apiversion{0.1.0.0-base}{图书销毁}
 
         \subsection{数据分析接口}
