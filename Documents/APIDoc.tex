@@ -454,7 +454,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \apiversion{0.1.0.0-base}{公开常量查询}
         \begin{description}
 	        \viaurl http://hostname:port/varcat
-	        \viareq{|POST}
+	        \viareq{\POST}
 	        \reqargclr{查询的变量名}
 	        $$varname=[text]$$
 	        \rtdata 返回的数据是 \bfJSON ,内容包括所查询的内容与结果。
