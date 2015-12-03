@@ -468,7 +468,15 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        \viaurl http://hostname:port/1d224726\safe/off
 	        \viareq{\POST}
 	        \reqargclr{图书条码}
+            $$barcode=[the\, barcode\,of\,book]$$
+            给入图书的条码。
 	        \rtdata 返回的数据是 \bfJSON ，其中包括 是否成功，以及不成功的原因。
+            \\ 可能返回的数据:
+            \begin{lstlisting}[language=JavaScript]
+{
+    "status":"success"
+}
+            \end{lstlisting}
 	         \end{description}
         \subsection{常量查询}
         \apiversion{0.1.0.0-base}{公开常量查询}
