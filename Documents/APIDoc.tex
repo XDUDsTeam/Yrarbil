@@ -603,7 +603,14 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         
         \end{description}
         \apiversion{0.1.0.0-base}{图书销毁}
-
+															\viaurl http://hostname:port/c7b70ceb\safe/
+        \viareq{\POST}
+        \reqargclr{图书条码}
+        				$$barcode=[the\,barcode\,of\,the\,book]$$
+          给入 说要删除的特定一本图书的条码。
+        \reqargclr{ISBN码}
+          $$isbn=[the\,books'\,isbn\,code\]$$
+          给入所要删除的书的ISBN，然后把所有ISBN码符合标准的图书注销。
         \subsection{数据分析接口}
         \apiversion{0.1.0.0-da}{获得所有图书的ISBN码}
         \apiversion{0.1.0.0-da}{通过ISBN码查找对应的图书的条码}
