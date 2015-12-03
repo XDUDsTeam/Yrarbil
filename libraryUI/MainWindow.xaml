@@ -1,0 +1,15 @@
+﻿<Window x:Name="password" x:Class="wanju2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Image Source="Images\picture.jpg" Stretch="Fill"/>
+        <Button x:Name="trilogin" Margin="277,210,0,0" Content="游客登陆" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="74" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="trilogin_Click" />
+        <Button x:Name="login" Margin="179,210,0,0" Content="登陆" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="81" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="login_Click" />
+        <TextBox x:Name="UserName" HorizontalAlignment="Left" Height="32" Margin="235,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="116"/>
+        <PasswordBox x:Name="PassWords" HorizontalAlignment="Left" Margin="235,149,0,0" VerticalAlignment="Top" Width="116" Height="32"/>
+
+
+
+    </Grid>
+</Window>
