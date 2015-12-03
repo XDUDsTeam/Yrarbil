@@ -311,7 +311,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \footnote{借阅，归还，续借}
         \subsubsection*{注意}
         这一部分需要管理员的临时ID 密钥，其给定的参数是
-        $$tid=[temp id key]$$。
+        $$tid=[temp\,id\,key]$$。
         其中 temp id key 是临时秘钥，其中要求该部分中的每个 POST GET 访问 提供。
         \apiversion{0.1.0.0-base}{图书借阅}
         \begin{description}
@@ -335,10 +335,10 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                 \viareq{\POST}
                 
                 \reqargclr{读者条码}
-                $$rid=[reader's id]$$
+                $$rid=[reader's\,id]$$
                 给定读者的条码。
                 \reqargclr{图书条码}
-                $$bid=[book‘s id]$$
+                $$bid=[book‘s\,id]$$
                 给定图书的条码。
                 \rtdata 
                 返回的数据是 \bfJSON 数据。会显示借阅成功与否\footnote{如果失败，将会传入失败的原因。超期可能使得图书无法借阅。}，何时到期。
@@ -360,7 +360,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        }\safe
 	        \viareq{\POST}
 	        \reqargclr{图书条码}
-	        $$bid=[book's id]$$
+	        $$bid=[book's\,id]$$
 	        给定要归还的图书的目录。
 	        \rtdata 返回数据为\bfJSON 。或者还书成功，或者返回失败的信息及原因。如果图书超期，则需要先处理超期
 	        \footnote{即缴纳罚款，以“购买”借阅时长，使得可以还款，此处需要先除法超期处理，然后再缴纳罚款，最后还书。}。
@@ -382,7 +382,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 		     }\safe
 		     \viareq{\POST}
 		     \reqargclr{图书条码}
-		     $$bid=[book's id]$$
+		     $$bid=[book's\,id]$$
 		     给定要归还的图书的条码。
 		     \rtdata 返回的数据为 \bfJSON 。或者成功，并返回借阅期限。或者返回的是原因，如果为超期，则先需要处理超期问题。
 		     \\ 可能返回的数据：
@@ -390,7 +390,29 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 		     \end{lstlisting}
 		      \end{description}
         \apiversion{0.1.0.0-base}{超期处理}
-        超期处理部分暂时先不处理。
+        此处，超期处理的核心本质是通过购买借阅时长，使得借阅，还书，续借得以正常
+        \footnote{如果有图书超期，只有归还其他未超期图书与购买图书期限不会受到限制}。
+        \begin{description}
+            \viaurl http://hostname:port/a3cab3a\safe/485e205c
+            \footnote{
+               英文单词 \textbf{buy-time} 的MD5 值是
+                $480cd611d3ca7d78abe08436fb05d95c$，
+                SHA256 值是
+                $5e580e1956693597ba206e4bf82f24b59fef00e3f4a4ce19ab4bb13ed67d8520$。
+            }\safe
+            \viareq{\POST}
+            \reqargclr{大流水号}
+            $$bsm=[the big\,serial\,number ]$$
+            给定大流水号。
+            \rtdata 返回的数据将会有处理成功与否，和延长的时间。
+            \\ 可能返回的数据
+            \begin{lstlisting}[language=JavaScript]
+{
+    "status":"success",
+    "add":10
+}
+            \end{lstlisting}
+        \end{description}
         \apiversion{0.1.0.0-base}{处罚处理}%缴纳罚款
         \begin{description}
 	        \viaurl http://hostname:port/a3cab3a\safe/c91ed8fd
@@ -401,10 +423,10 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        \safe
 	        \viareq{\POST}
 	        \reqargclr{读者条码}
-	        $$rid=[reader's id]$$
+	        $$rid=[reader's\,id]$$
 	        传入的是读者条码。
 	        \reqargclr{金额}
-	        $$cash=[reader's cash]$$
+	        $$cash=[reader's\,cash]$$
 	        传入的是读者的缴纳的罚款的金额。
 	        \reqargclr{事由}
 	        $$resaon=[text]$$
@@ -420,7 +442,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	    \end{description}
         \subsection{图书预约API}
         这一部分需要给定读者的临时 ID 秘钥，格式是
-        $$tide=[the temp id of reader]$$
+        $$tide=[the\,temp\,id\,of\,reader]$$
         其中读者秘钥 需要提供给 所有 POST GET 方法。
         \apiversion{0.1.0.0-base}{图书预约}
         \begin{description}
@@ -470,9 +492,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	        \viaurl http://hostname:port/423472651c\safe/ons
 	        \viareq{\GET}
 	        \reqargclr{图书条码}
-	        $$bid=[book's id]$$
+	        $$bid=[book's\,id]$$
 	        或
-	        $$isbn=[book's isbn]$$
+	        $$isbn=[book's\,isbn]$$
 	        给定图书的条码或 ISBN 码。
 	        \rtdata 返回的数 JSON 数据，其中
 	        \begin{lstlisting}[language=JavaScript]
@@ -603,14 +625,30 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         
         \end{description}
         \apiversion{0.1.0.0-base}{图书销毁}
-															\viaurl http://hostname:port/c7b70ceb\safe/
+        \begin{description}
+		\viaurl http://hostname:port/c7b70ceb\safe/761b31a3
+        \footnote{
+            英文单词 \textbf{destroy} 的MD5 值是
+            $7615bbace0fdc952fa5b4067f18a2d7a$，
+            SHA256 值是
+            $b3188b89408c7d8a17f3a985bd087051ce21c5cfe56ce8f9962b79f3c793c8d3$。
+        }\safe
         \viareq{\POST}
         \reqargclr{图书条码}
         				$$barcode=[the\,barcode\,of\,the\,book]$$
           给入 说要删除的特定一本图书的条码。
-        \reqargclr{ISBN码}
-          $$isbn=[the\,books'\,isbn\,code\]$$
+        \reqargclr{ISBN码}\footnote{这个参数与图书条码为至少二选一。}
+          $$isbn=[the\,books'\,isbn\,code]$$
           给入所要删除的书的ISBN，然后把所有ISBN码符合标准的图书注销。
+        \rtdata 返回的数据是 \bfJSON 数据。
+        \\ 可能返回的数据是：
+        \begin{lstlisting}[language=JavaScript]
+{
+    "status":"failed",
+    "reason":"no such a book"
+}
+        \end{lstlisting}
+        \end{description}
         \subsection{数据分析接口}
         \apiversion{0.1.0.0-da}{获得所有图书的ISBN码}
         \apiversion{0.1.0.0-da}{通过ISBN码查找对应的图书的条码}
