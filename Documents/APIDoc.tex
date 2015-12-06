@@ -150,7 +150,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-    \subsection{用户认证API}%   Authentication 
+    \subsection{用户认证API}%   Authentication
 
 
 
@@ -174,7 +174,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \safe
         \footnote{\textit{\textbf{safe}} 是指安全添加的内容，例如可以是主机ip的sha256值。一个URL中的“safe”不一定相同。后同}/fc8252b7
         \footnote{
-            英文单词的\textbf{admin} 
+            英文单词的\textbf{admin}
             MD5值是 $456b7016a916a4b178dd72b947c152b7 $,
             SHA256 值是
             $fc8252c8dc55839967c58b9ad755a59b61b67c13227ddae4bd3f78a38bf394f7$。
@@ -331,16 +331,16 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                     $e0bdc575f0fa8f791e99d552763f6a57353b940be7375a2bdba2e034387daa4e$。
                 }
                 \safe
-                
+
                 \viareq{\POST}
-                
+
                 \reqargclr{读者条码}
                 $$rid=[reader's\,id]$$
                 给定读者的条码。
                 \reqargclr{图书条码}
                 $$bid=[book‘s\,id]$$
                 给定图书的条码。
-                \rtdata 
+                \rtdata
                 返回的数据是 \bfJSON 数据。会显示借阅成功与否\footnote{如果失败，将会传入失败的原因。超期可能使得图书无法借阅。}，何时到期。
                 \\  可能返回的数据
                 \begin{lstlisting}[language=JavaScript]
@@ -442,7 +442,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	    \end{description}
         \subsection{图书预约API}
         这一部分需要给定读者的临时 ID 秘钥，格式是
-        $$tide=[the\,temp\,id\,of\,reader]$$
+        $$tidk=[the\,temp\,id\,key\,of\,reader]$$
         其中读者秘钥 需要提供给 所有 POST GET 方法。
         \apiversion{0.1.0.0-base}{图书预约}
         \begin{description}
@@ -481,7 +481,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \subsection{常量查询}
         \apiversion{0.1.0.0-base}{公开常量查询}
         \begin{description}
-	        \viaurl http://hostname:port/varcat
+	        \viaurl http://hostname:port/varcat/public
 	        \viareq{\POST}
 	        \reqargclr{查询的变量名}
 	        $$varname=[text]$$
@@ -514,7 +514,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \apiversion{0.1.0.0-base}{图书CIP信息查询}
                 通过 ISBN查询，返回图书的信息。
                 \begin{description}
-                    
+
                     \viaurl http://hostname:port/423472651c
                     \footnote{单词 \textbf{book}的
                         MD5 值是 $4f98663772651c870e911982e991d0d9$，
@@ -536,20 +536,20 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                         。
                     }
                     \safe
-                    
-                    
+
+
                     \viareq \GET
-                    
-                    
+
+
                     \reqargclr{ISBN码}
                     $$isbn=[ISBN]$$
                     其中的 ISBN 是书的 ISBN 码。
-                    
-                    
+
+
                     \reqargclr{返回数据形式}
                     $$type=[json|html]$$
                     返回的数据格式类型是 JSON 数据还是 HTML 文件。
-                    
+
                     \rtdata 请求返回的可能是数据，也可能是 html。
                     可能返回的数据之一：
                     \begin{lstlisting}[language=JavaScript]
@@ -582,7 +582,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \subsection{图书检索}
         \apiversion{0.1.0.0-base}{根据ISBN匹配}
         \apiversion{0.1.0.0-base}{根据条件检索}
-        \apiversion{0.1.0.0-plus}{获取图书的BibTeX引用数据}
+        \apiversion{0.1.0.0-plus}{获取图书的\BibTeX 引用数据}
         \subsection{图书录入与销毁}
         \apiversion{0.1.0.0-base}{图书录入}
         实体的单本图书的录入。
@@ -600,9 +600,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
                 MD5 值是 $69a904ac9adfbefaa69a720e4c13780a $，
                 SHA256 值是 $87623ceab830648b4f91539f54b7d3d6ef9bbdb04a1442dcfbf90103dd60e73e$。
             }\safe
-            
+
             \viareq{\POST}
-            
+
             \reqargclr{ISBN} 输入ISBN 数据。
             \reqargclr{条码} 获得条码。
             \rtdata 返回的数据是 \bfJSON 数据，将返回是否成功，如果失败，将返回原因。
@@ -630,7 +630,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         \reqargclr{出版社}
         \reqargclr{出版日期}
         \reqargclr{图书分类} 获得图书的分类信息
-        
+
         \end{description}
         \apiversion{0.1.0.0-base}{图书销毁}
         \begin{description}
@@ -683,8 +683,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
       目前的所有的文档，均通过 Travis-ci
       \footnote{Travis CI是在软件开发领域中的一个在线的，分布式的持续集成服务。}
       及时编译，再次并上传到GitHub上。
-      
+
     \end{appendices}
 
 \end{document}
-
