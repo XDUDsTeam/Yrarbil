@@ -122,7 +122,7 @@ CREATE TABLE table_bookitem
 	is_there		BOOLEAN NOT NULL,
 	latest_opt_id	CHAR(64),
 	bought_price	INT,
-	bought_date 	DATE
+	bought_date 	DATE,
 );
 --------------------------------------
 -- 创建 图书操作记录 入库（购买）
@@ -152,8 +152,9 @@ CREATE TABLE table_bookopt_main
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
 	reader_barcode				TEXT NOT NULL,
 	book_barcode				BIGINT NOT NULL,
-	time_lmt					INT[] NOT NULL,
-	return_date					DATE
+	times								INT NOT NULL,
+	return_date					DATE,
+	is_return						BOOLEAN NOT NULL
 );
 
 --------------------------------------
