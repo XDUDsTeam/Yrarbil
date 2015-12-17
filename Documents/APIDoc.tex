@@ -387,8 +387,12 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 		     给定要归还的图书的条码。
 		     \rtdata 返回的数据为 \bfJSON 。或者成功，并返回借阅期限。或者返回的是原因，如果为超期，则先需要处理超期问题。
 		     \\ 可能返回的数据：
-		     \begin{lstlisting}[]
-		     \end{lstlisting}
+		     \begin{lstlisting}[language=JavaScript]
+{
+	"status":"success",
+    "returnDate":"2020-11-31"
+}
+		     \end{lstlisting}\footnote{2020-11-31只是一个例子，实际不会返回这类数据。}
 		      \end{description}
         \apiversion{0.1.0.0-base}{超期处理}
         此处，超期处理的核心本质是通过购买借阅时长，使得借阅，还书，续借得以正常
@@ -605,7 +609,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             \viareq{\POST}
 
             \reqargclr{ISBN} 输入ISBN 数据。
+            $$isbn=[the\,isbn\,of\,book]$$
             \reqargclr{条码} 获得条码。
+            $$barcode=[the\,barcode\,of\,book]]$$
             \rtdata 返回的数据是 \bfJSON 数据，将返回是否成功，如果失败，将返回原因。
             \\ 可能的返回数据:
             \begin{lstlisting}[language=JavaScript]
@@ -625,13 +631,33 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         }\safe
         \viareq{\POST}
         \reqargclr{ISBN}
+        $$isbn=[the\,isbn\,of\,book]$$
+        提供图书的ISBN码。
         \reqargclr{书名}
+        $$title=[the\,title\,of\,book]$$
+        提供图书的书名／题目。
         \reqargclr{作者}
+        $$auth=[the\,author\,of\,book]$$
+        提供作者是谁。
         \reqargclr{出版地}
+        $$publocal=[the\,localtion\,of\,publish]$$
+        提供图书出版地的信息。
         \reqargclr{出版社}
+        $$pubh=[the\,publish\,house\,of\,book]$$
+        提供图书的出版社信息。
         \reqargclr{出版日期}
+        $$pubd=[the\,date\,of\,publish]$$
+        提供图书出版的时间。
         \reqargclr{图书分类} 获得图书的分类信息
-
+        $$zth=[zth]$$
+        提供图书的中国图书分类号。
+        \rtdata 返回提供的是否是成功。
+	    	\\ 可能返回的数据：
+        \begin{lstlisting}[language=JavaScript]
+{
+    "status":"success"
+}
+		\end{lstlisting}
         \end{description}
         \apiversion{0.1.0.0-base}{图书销毁}
         \begin{description}
@@ -658,6 +684,8 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 }
         \end{lstlisting}
         \end{description}
+		\apiversion{0.1.0.0-plus}{获取下一个可用的图书的条码}
+        \apiversion{0.1.0.0-plus}{查询某一个条码是否对应图书}
         \subsection{数据分析接口}
         \apiversion{0.1.0.0-da}{获得所有图书的ISBN码}
         \apiversion{0.1.0.0-da}{通过ISBN码查找对应的图书的条码}
