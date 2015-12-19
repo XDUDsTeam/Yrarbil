@@ -198,7 +198,7 @@ CREATE TABLE table_opt
 (
 	small_serial_number			INT 		NOT NULL,
 	opt_date					DATE 		NOT NULL,
-	opt_usr_type				SMALLINT	NOT NULL,
+	opt_usr_type				INT	NOT NULL,
 	opt_usr_id					TEXT		NOT NULL
 );
 
