@@ -152,8 +152,9 @@ CREATE TABLE table_bookopt_main
 	big_serial_number			TEXT NOT NULL PRIMARY KEY,
 	reader_barcode				TEXT NOT NULL,
 	book_barcode				BIGINT NOT NULL,
-	time_lmt					INT[] NOT NULL,
-	return_date					DATE
+	times								INT NOT NULL,
+	return_date					DATE,
+	is_return						BOOLEAN NOT NULL
 );
 
 --------------------------------------
@@ -197,7 +198,7 @@ CREATE TABLE table_opt
 (
 	small_serial_number			INT 		NOT NULL,
 	opt_date					DATE 		NOT NULL,
-	opt_usr_type				SMALLINT	NOT NULL,
+	opt_usr_type				INT	NOT NULL,
 	opt_usr_id					TEXT		NOT NULL
 );
 
