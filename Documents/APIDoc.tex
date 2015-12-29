@@ -60,6 +60,7 @@
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
     \newpage
+    
 
 
     \section{API 改动说明}
@@ -392,7 +393,8 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 	"status":"success",
     "returnDate":"2020-11-31"
 }
-		     \end{lstlisting}\footnote{2020-11-31只是一个例子，实际不会返回这类数据。}
+		     \end{lstlisting}
+\footnote{2020-11-31只是一个例子，实际不会返回这类数据。}
 		      \end{description}
         \apiversion{0.1.0.0-base}{超期处理}
         此处，超期处理的核心本质是通过购买借阅时长，使得借阅，还书，续借得以正常
@@ -649,7 +651,8 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
         $$pubd=[the\,date\,of\,publish]$$
         提供图书出版的时间。
         \reqargclr{图书分类} 获得图书的分类信息
-        $$zth=[zth]$$
+
+        $$zth=[zth]$$
         提供图书的中国图书分类号。
         \rtdata 返回提供的是否是成功。
 	    	\\ 可能返回的数据：

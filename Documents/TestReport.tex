@@ -16,4 +16,28 @@
     \include{PrjIntr}
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
+    \chapter{后端测试}
+    \section{持续集成}
+    Yrarbil 后端 使用 Travis-CI 与 道客云 提供的程序集成服务，通过对接 GitHub，持续集成服务在每次 Git-Push 之后，进行编译测试。
+    后端项目截至2015年12月24日晚10点整，最后一次Git 提交的 SHA 截断码是 $5c76285$ ，程序版本后为 0.0.8.66。
+    Travis-CI 共进行了 135 次，最后一次成功编译，并构建 Docker镜像 部署于 DaoCloud 之上。
+    访问 \href{http://qinka-yrarbilbackend.daoapp.io}{YrarbilBackend-DaoCloud} 
+    \footnote{由于开发“期”已经结束，所以该地址可能无法被访问。}
+    在 DaoCloud 上的 Docker 镜像构建与持续集成次数由于官方为提供接口等，暂无法统计。
+    此外 该项目还在 DockerHub 与 灵雀云 上执行 Docker 构建，并均执行成功过。
+    \section{功能测试}
+    \subsection{登陆与退出测试}
+    \begin{description}
+        \item[调用 API] http://hostname:port
+        \footnote{因为此处，此时使用了不止一个主机上部署的后端，故不详细指出host name 与 post }
+        /1daa62b/abc/b8ab91a6/a8979bcdu8/fc8252b7/8989
+        \item[调用参数] $$uid=1024\&key=021bbc7ee20b71134d53e20206bd6feb$$
+        其中 1024 的 MD5 值是 $021bbc7ee20b71134d53e20206bd6feb$
+        \item[返回内容] \{"status":"success","time":"2015-12-24 21:53:13.213008 UTC","tidk":"e9b7d42056cc46d7fa4270fd48765f778ff63275943abb7c"\}        
+    \end{description}
+    \begin{description}
+        \item[调用 API]
+        http:       //hostname:port//1daa62b/abc/a050ba73/a897342ad/fc8252b7/8989
+        \item[调用参数] $$tidk=$$
+    \end{description}
 \end{document}
