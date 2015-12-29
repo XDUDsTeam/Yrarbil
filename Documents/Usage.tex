@@ -1,0 +1,38 @@
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Yrarbil 使用说明书。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 使用XeLaTeX 与 XeCJK
+\documentclass[UTF8]{book}
+\usepackage{xeCJK}
+
+% 确定 说明书
+\def\usagePart{}
+
+\include{Author}
+\include{Preamble}
+
+\begin{document}
+\maketitle\include{PrjIntr}
+\pdfbookmark[1]{目录}{anchor}
+\tableofcontents
+\part{前端}
+\chapter{客户端}
+\chapter{网页端}
+\part{后端}
+\chapter{后端}
+\section{编译}
+\section{docker 镜像}
+\section{配置}
+\section{安装}
+\section{运行}
+\chapter{数据库}
+\section{编译安装}
+\section{初始化}
+\section{使用}
+\end{document}

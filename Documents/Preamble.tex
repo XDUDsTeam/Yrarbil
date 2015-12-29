@@ -83,22 +83,12 @@
 \def\apiver{!!}
 \fi
 \ifdefined\@APIVersionFlag
-\def\Color@now#1{\colorbox[rgb]{0.98,0.72,0.43}{#1}}
-\def\Color@old#1{\colorbox[rgb]{0.79,0.79,0.58}{#1}}
-\def\APIColor#1#2{
-    \def\tmp@a{#1}
-    \def\tmp@b{#2}
-    \ifx \tmp@a \tmp@b
-    \Color@new{#1}
-    \else
-    \Color@old{#1}
-    \fi
-    }
-\def\apiversionn#1{\paragraph{\APIColor{\small#1}{\apiver}}}
-\def\apiversion#1#2{\paragraph{{\colorbox[rgb]{0.98,0.72,0.43}{#1}} #2}\stepcounter{paragraph}}
-\else
-\def\apiversion#1{#1}
-\def\apiversionn#1{#1}
+\def\Color@next#1{\colorbox[rgb]{0.78,0.7,0.65}{#1}}
+\def\Color@cur#1{\colorbox[rgb]{0.98,0.72,0.43}{#1}}
+\def\Color@over#1{\colorbox[rgb]{0.79,0.79,0.58}{#1}}
+\def\nextapiversion#1#2{\paragraph{{\Color@next{#1}} #2}\stepcounter{paragraph}}
+\def\apiversion#1#2{\paragraph{{\Color@cur{#1}} #2}\stepcounter{paragraph}}
+\def\overapiversion#1#2{\paragraph{{\Color@over{#1}} #2}\stepcounter{paragraph}}
 \fi
 \makeatother
 

@@ -16,6 +16,8 @@
     \include{PrjIntr}
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
+    \chapter{文档测试}
+    文档直接 使用 Travis-CI 持续集成。
     \chapter{后端测试}
     \section{持续集成}
     Yrarbil 后端 使用 Travis-CI 与 道客云 提供的程序集成服务，通过对接 GitHub，持续集成服务在每次 Git-Push 之后，进行编译测试。
@@ -38,6 +40,9 @@
     \begin{description}
         \item[调用 API]
         http:       //hostname:port//1daa62b/abc/a050ba73/a897342ad/fc8252b7/8989
-        \item[调用参数] $$tidk=$$
+        \item[调用参数] $$tidk=1c2a2ab6e1a919919c58175e2cca4ec5b7569f70756c82e5$$
+        \item[返回内容] \{"status":"success","logoutcount":"1"\}
     \end{description}
+    \subsection{其他 测试}
+    其他功能使用 使用特制的uwp应用测试，该应用的代码也托管到了 GitHub 之上。
 \end{document}
