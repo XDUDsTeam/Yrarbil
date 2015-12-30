@@ -18,6 +18,59 @@
     \tableofcontents
     \chapter{文档测试}
     文档直接 使用 Travis-CI 持续集成。
+    \chapter{Web 前端测试}
+    测试环境：powershell 3.0 IIS 10.0.10586.0
+    \section{登录测试}
+    Invoke-WebRequest \\
+    http://qinka-yrarbilbackend.daoapp.io:80/1daa62b/authentication \\
+    /b8ab91a6/login/5ece85ba/reader -method post -body \\ "uid=1000\&key=e2559927016276b8f01e7b13de6d5c41"
+    \par 服务器响应代码：200
+    \par 服务器响应正常
+    \par 返回结果：{"status":"failed","reason":"no reader id or null password"}
+    \par  登录失败
+    
+    Invoke-WebRequest \\ http://qinka-yrarbilbackend.daoapp.io:80/1daa62b/authentication \\
+    /b8ab91a6/login/fc8252b7/admin -method post -body \\
+    "uid=2000\&key=2ace9ab8cd136d2a188d2edd1383a6fd"
+    \par 服务器响应代码：200
+    \par 服务器响应正常
+    \par 返回结果：
+    {"status":"success","tidk":"1c2a2ab6e1a919919c58175e2cca4ec5b7569f70756c82e5"}
+    \par 登录成功
+    
+    \section{图书状态查询}
+    未提图书供条码或图书ISBN码，无法测试
+    
+    \section{图书信息查询}
+    未提供图书ISBN码，无法测试
+    
+    \section{资源加载测试}
+    资源列表
+    \begin{tabular}{|l|r|}
+        \hline 资源列表 & 状态  \\ \hline
+    css/loginpage.css  & OK \\ \hline
+    css/mainpage.css &  OK \\ \hline
+    js/Data.js   &OK \\ \hline
+    js/Md5.js   &OK \\ \hline
+    js/Pagelogic.js &  OK \\ \hline
+    texture/background.jpg&   OK \\ \hline
+    texture/sitemap.jpg   &OK \\ \hline
+    login.html  & OK \\ \hline
+    page.html  & OK \\ \hline
+    \end{tabular} 
+    全部资源加载正常，
+    最短加载时间2ms，最长加载时间57ms
+    
+    \section{页面显示}
+    \subsection{登录页面}
+    页面宽度小于页面高度时，页面背景底部出现不符合预期的白边
+    \subsection{主页面}
+    页面尺寸较小时，导航栏高度过小，导航栏字体过大溢出
+    
+    \section{页面逻辑}
+    登陆页面跳转正常 \par
+    主页面跳转正常 \par
+    主页页面元素隐藏，显示正常
     \chapter{后端测试}
     \section{持续集成}
     Yrarbil 后端 使用 Travis-CI 与 道客云 提供的程序集成服务，通过对接 GitHub，持续集成服务在每次 Git-Push 之后，进行编译测试。
@@ -44,5 +97,5 @@
         \item[返回内容] \{"status":"success","logoutcount":"1"\}
     \end{description}
     \subsection{其他 测试}
-    其他功能使用 使用特制的uwp应用测试，该应用的代码也托管到了 GitHub 之上。
+    其他功能使用 使用特制的测试用的uwp应用，该应用的代码也托管到了 GitHub 之上。
 \end{document}
