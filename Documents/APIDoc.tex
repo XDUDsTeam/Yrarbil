@@ -27,6 +27,7 @@
 \def\@UsingAppendix{}
 \def\@FootnoteWithPage{}
 \def\@lst@json@define{} %json
+\def\@APIDoc{}
 \makeatother
 
 %使用 XeLaTeX 和 XeCJK 套装 编译
@@ -45,7 +46,7 @@
 \def\safe{/[\textit{safe}]}
 \def\GET{\colorbox[rgb]{0.77,0.53,0.97}{\textbf{GET}}}
 \def\POST{\colorbox[rgb]{0.77,0.53,0.97}{\textbf{POST}}}
-\def\bfJSON{\textbf{JSON}}
+\def\bfJSON{\textbf{JSON}\space}
 \def\viaurl{\item[{\quad\colorbox[rgb]{0.47,0.88,0.89}{访问URL}}]}
 \def\viareq#1{\item[{\quad\colorbox[rgb]{0.57,0.88,0.99}{访问方式}}] #1}
 \def\rtdata{\item[{\quad\colorbox[rgb]{0.70,0.9,0.59}{返回数据}}]}
@@ -57,6 +58,7 @@
 \begin{document}
     \maketitle
     \newpage
+    \include{license}
     \include{PrjIntr}
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
@@ -71,8 +73,8 @@
 
     \subsection{API 0.0.0.0-dbtag}
     该 API 标志的，首先，意味着这个数据库可查询其中支持的各个 API 版本。其次，意味着这是一个标准
-      \footnote{按照这个API 文档构件的后端。并且从理论上，非配套的前后端也可以交互。}
-    后端。最后，一般前端是无法直接访问数据库的，然而后端是要访问数据库的。
+      \footnote{按照这个API 文档构建的数据库与后端。并且从理论上，非配套的前后端也可以交互。}
+    数据库。最后，一般前端是无法直接访问数据库的，然而后端是要访问数据库的。
 
     \subsection{API 0.0.0.0-betag}
     该 API 标志着可以通过特定方式查询后端与数据库支持的 API 的版本。这也是一个标准后端的应有的。
@@ -99,11 +101,12 @@
 
     \section{数据库API}
     \apiversion{0.0.0.0-dstag}{版本检查}
-    可查询表 versions 来确定 所需要的 api 对应的版本号是否支持。
+    可查询表 table\_version 来确定 所需要的 api 对应的版本号是否支持。
     \begin{lstlisting}[language=SQL]
 SELECT * FROM versions WHERE NOT vereq(ver,yourver);
     \end{lstlisting}
     其中 yourver 是指定的版本标号。
+    \par 其他的内容，暂不允许除后端之外的部分交互，同时这一部分的内容并不强制。
 
 
 
@@ -125,7 +128,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
 
     \section{后端API}
-    后端 API 主要以 HTTP 请求为主。
+    后端 API 主要以 HTTP 请求
+    \footnote{在 Next Generation of Yrarbil 中会通过对 Yesod 的定制，增加 对 TLS 的支持，之后 或许需要以 https 开头}
+    为主。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -198,7 +203,9 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
          其中第一部分是密码的md5值。
 
         \rtdata 请求返回的数据是 \bfJSON 数据。具体返回内容有：
-        特定的临时ID密钥，用于简化之后操作的认证；
+        特定的临时ID密钥 
+        \footnote{临时 ID 密钥 实质上是 一个有时间限制的 临时的 Token。}
+        ，用于简化之后操作的认证；
         时限，长度为小时，限定使用实现\footnote{可选，可无}。
          \\ 可能的返回数据：
         \begin{lstlisting}[language=JavaScript]
@@ -413,7 +420,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
             }\safe
             \viareq{\POST}
             \reqargclr{大流水号}
-            $$bsm=[the big\,serial\,number ]$$
+            $$bsm=[the\,big\,serial\,number ]$$
             给定大流水号。
             \rtdata 返回的数据将会有处理成功与否，和延长的时间。
             \\ 可能返回的数据
@@ -470,7 +477,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 			 \begin{lstlisting}[language=JavaScript]
 {
 	"status":"failed",
-	"reason":"Is not in library"
+	"reason":"This book is not in library"
 }
 			 \end{lstlisting}
 	       \end{description}
@@ -707,13 +714,7 @@ SELECT * FROM versions WHERE NOT vereq(ver,yourver);
 
     \newpage
     \begin{appendices}
-    \section{参考文档}
-    \begin{enumerate}
-        \item Yrarbil 的需求分析报告
-        \item Yrarbil 的架构分析报告
-        \item Yrarbil 的测试报告
-        \item Yrarbil 的后端文档
-    \end{enumerate}
+    \include{OtherDocLink}
     \section{文档网址}
          全部的文档可以访问 \url{https://github.com/XDUDsTeam/YrarbilRelease} 仓库。
       目前的所有的文档，均通过 Travis-ci

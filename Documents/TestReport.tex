@@ -6,6 +6,12 @@
 \documentclass[UTF8]{report}
 \usepackage{xeCJK}
 
+%flag 设置
+\makeatletter
+\def\@TRDoc{}
+\def\@UsingAppendix{}
+\makeatother
+
 \input{Preamble}
 \include{Author}
 
@@ -13,11 +19,40 @@
 
 \begin{document}
     \maketitle
+    \include{license}
     \include{PrjIntr}
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
     \chapter{文档测试}
     文档直接 使用 Travis-CI 持续集成。
+    
+    \chapter{后端测试}
+    \section{持续集成}
+    Yrarbil 后端 使用 Travis-CI 与 道客云 提供的程序集成服务，通过对接 GitHub，持续集成服务在每次 Git-Push 之后，进行编译测试。
+    后端项目截至2015年12月24日晚10点整，最后一次Git 提交的 SHA 截断码是 $5c76285$ ，程序版本后为 0.0.8.66。
+    Travis-CI 共进行了 135 次，最后一次成功编译，并构建 Docker镜像 部署于 DaoCloud 之上。
+    访问 \href{http://qinka-yrarbilbackend.daoapp.io}{YrarbilBackend-DaoCloud} 
+    \footnote{由于开发“期”已经结束，所以该地址可能无法被访问。}
+    在 DaoCloud 上的 Docker 镜像构建与持续集成次数由于官方为提供接口等，暂无法统计。
+    此外 该项目还在 DockerHub 与 灵雀云 上执行 Docker 构建，并均执行成功过。
+    \section{功能测试}
+    \subsection{登陆与退出测试}
+    \begin{description}
+        \item[调用 API] http://hostname:port
+        \footnote{因为此处，此时使用了不止一个主机上部署的后端，故不详细指出host name 与 post }
+        /1daa62b/abc/b8ab91a6/a8979bcdu8/fc8252b7/8989
+        \item[调用参数] $$uid=1024\&key=021bbc7ee20b71134d53e20206bd6feb$$
+        其中 1024 的 MD5 值是 $021bbc7ee20b71134d53e20206bd6feb$
+        \item[返回内容] \{"status":"success","time":"2015-12-24 21:53:13.213008 UTC","tidk":"e9b7d42056cc46d7fa4270fd48765f778ff63275943abb7c"\}        
+    \end{description}
+    \begin{description}
+        \item[调用 API]
+        http:       //hostname:port//1daa62b/abc/a050ba73/a897342ad/fc8252b7/8989
+        \item[调用参数] $$tidk=1c2a2ab6e1a919919c58175e2cca4ec5b7569f70756c82e5$$
+        \item[返回内容] \{"status":"success","logoutcount":"1"\}
+    \end{description}
+    \subsection{其他 测试}
+    其他功能使用 使用特制的测试用的uwp应用，该应用的代码也托管到了 GitHub 之上。
     \chapter{Web 前端测试}
     测试环境：powershell 3.0 IIS 10.0.10586.0
     \section{登录测试}
@@ -70,32 +105,44 @@
     \section{页面逻辑}
     登陆页面跳转正常 \par
     主页面跳转正常 \par
-    主页页面元素隐藏，显示正常
-    \chapter{后端测试}
-    \section{持续集成}
-    Yrarbil 后端 使用 Travis-CI 与 道客云 提供的程序集成服务，通过对接 GitHub，持续集成服务在每次 Git-Push 之后，进行编译测试。
-    后端项目截至2015年12月24日晚10点整，最后一次Git 提交的 SHA 截断码是 $5c76285$ ，程序版本后为 0.0.8.66。
-    Travis-CI 共进行了 135 次，最后一次成功编译，并构建 Docker镜像 部署于 DaoCloud 之上。
-    访问 \href{http://qinka-yrarbilbackend.daoapp.io}{YrarbilBackend-DaoCloud} 
-    \footnote{由于开发“期”已经结束，所以该地址可能无法被访问。}
-    在 DaoCloud 上的 Docker 镜像构建与持续集成次数由于官方为提供接口等，暂无法统计。
-    此外 该项目还在 DockerHub 与 灵雀云 上执行 Docker 构建，并均执行成功过。
-    \section{功能测试}
-    \subsection{登陆与退出测试}
-    \begin{description}
-        \item[调用 API] http://hostname:port
-        \footnote{因为此处，此时使用了不止一个主机上部署的后端，故不详细指出host name 与 post }
-        /1daa62b/abc/b8ab91a6/a8979bcdu8/fc8252b7/8989
-        \item[调用参数] $$uid=1024\&key=021bbc7ee20b71134d53e20206bd6feb$$
-        其中 1024 的 MD5 值是 $021bbc7ee20b71134d53e20206bd6feb$
-        \item[返回内容] \{"status":"success","time":"2015-12-24 21:53:13.213008 UTC","tidk":"e9b7d42056cc46d7fa4270fd48765f778ff63275943abb7c"\}        
-    \end{description}
-    \begin{description}
-        \item[调用 API]
-        http:       //hostname:port//1daa62b/abc/a050ba73/a897342ad/fc8252b7/8989
-        \item[调用参数] $$tidk=1c2a2ab6e1a919919c58175e2cca4ec5b7569f70756c82e5$$
-        \item[返回内容] \{"status":"success","logoutcount":"1"\}
-    \end{description}
-    \subsection{其他 测试}
-    其他功能使用 使用特制的测试用的uwp应用，该应用的代码也托管到了 GitHub 之上。
+    主页页面元素隐藏，显示正常.
+    \chapter{客户端UI}
+    测试内容
+    \begin{lstlisting}[language=C++]
+    public string username:     yonghu1 yonghu2 yonghu3 yonghu4 yonghu5
+    public string passwords:    123456  123456  123456  123456  123456
+    public string userinfomation：  yonghu100001id00001
+    yonghu200002id00003
+    yonghu300003id00003
+    yonghu400004id00004
+    yonghu500005id00005
+    public string loanrecord		无
+    无
+    无
+    无
+    无
+    
+    public string booknumber:		0000000001	0000000002	0000000003	
+    0000000004	0000000005
+    public string requirement1;
+    public string requirement2;
+    public string requirement3;
+    public string details:          存在			存在			存在
+    存在			存在			存在
+    public string serchresult;		可以借阅		可以借阅		可以借阅
+    可以借阅		可以借阅
+    
+    public string libintroduction:        这里是西安电子科技大学
+    public string hotbooks;			 热门图书0000000001
+    public string newbooks;			 新书上架0000000001
+    
+    
+    public string borrowbookid;		0000000001	0000000002	0000000003
+    0000000004	0000000005
+    public string returnbookid;		0000000001	0000000002	0000000003
+    0000000004	0000000005
+    \end{lstlisting}
+    \begin{appendices}
+        \include{OtherDocLink}
+    \end{appendices}
 \end{document}

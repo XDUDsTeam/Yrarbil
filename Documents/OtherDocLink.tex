@@ -1,0 +1,50 @@
+% 参考文档链接
+\def\ApiDocPDF{\href{https://github.com/XDUDsTeam/YrarbilRelease/raw/master/APIDoc.pdf}{API Document}}
+\def\ArchitectureDesignPDF{\href{https://github.com/XDUDsTeam/YrarbilRelease/raw/master/ArchitectureDesign.pdf}{Architecture Design Document}}
+\def\BackEndPdf{\href{https://github.com/XDUDsTeam/YrarbilRelease/raw/master/BackEnd.pdf}{Backend Document}} 
+\def\DemandAnalysisPdf{\href{https://github.com/XDUDsTeam/YrarbilRelease/raw/master/DemandAnalysis.pdf}{Demand Analysis Docment}}
+\def\TestReportPDF{\href{https://github.com/XDUDsTeam/YrarbilRelease/raw/master/TestReport.pdf}{Text Report}}
+
+\makeatletter
+\ifdefined \@NoStyleChapter
+\section{可参考文档}
+\else
+\chapter{可参考文档}
+\fi
+\makeatother
+
+
+Github \& Travis-CI 版
+\begin{itemize}
+    \makeatletter
+    \ifdefined \@APIDoc
+    \relax
+    \else
+    \item \ApiDocPDF
+    \fi
+    
+    \ifdefined \@ADDoc
+    \relax
+    \else
+    \item \ArchitectureDesignPDF
+    \fi
+    
+    \ifdefined \@BackendDoc
+    \relax
+    \else
+    \item \BackEndPdf
+    \fi
+    
+    \ifdefined \@DADoc
+    \relax
+    \else
+    \item \DemandAnalysisPdf
+    \fi
+    
+    \ifdefined \@TRDoc
+    \relax
+    \else
+    \item \TestReportPDF
+    \fi
+    \makeatother
+\end{itemize}

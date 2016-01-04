@@ -8,11 +8,9 @@
 
 %flag 设置
 \makeatletter
-\def\@NoStyleChapter{}
+\def\@ADDoc{}
 \def\@UsingAppendix{}
 \makeatother
-
-
 
 \input{Preamble}
 \input{Author}
@@ -20,6 +18,7 @@
 \title{架构设计报告}
 \begin{document}
     \maketitle
+    \include{license}
     \include{PrjIntr}
     \pdfbookmark[1]{目录}{anchor}
     \tableofcontents
@@ -305,10 +304,7 @@ id TEXT NOT NULL
     直接参照 API 文档 与 后端参考文档。
     \newpage
     \begin{appendices}
-    \chapter{参考文档}
-    \begin{itemize}
-        \item \href{}{API 文档\quad'GitHub\&Travis-CI'\quad 集成版} 
-        \item \href{}{后端参考文档\quad'GitHub\&Travis-CI'\quad 集成版 }
-    \end{itemize}
+    \include{OtherDocLink}
+    
     \end{appendices}
 \end{document}
